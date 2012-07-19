@@ -1,0 +1,14 @@
+include README.rst
+include CHANGES.rst
+include LICENSE
+include tox.ini
+include update_c.sh
+
+recursive-include hat-trie/src *.h *.c
+include hat-trie/src/config.h.in
+include hat-trie/configure
+include hat-trie/configure.ac
+
+include src/hat_trie.pyx
+include src/chat_datrie.pxd
+

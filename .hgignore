@@ -1,0 +1,15 @@
+^build
+^MANIFEST$
+^dist
+\.so$
+\.o$
+\.lo$
+
+^stuff/
+\.rej$
+\.pyc$
+^.tox
+\.orig$
+\.prof$
+\.coverage$
+\.git
