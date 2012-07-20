@@ -7,7 +7,7 @@ import pytest
 import hat_trie
 
 def test_get_set():
-    trie = hat_trie.Trie('cp1251')
+    trie = hat_trie.Trie()
     trie['foo'] = 5
     trie['bar'] = 10
     assert trie['foo'] == 5
@@ -27,23 +27,22 @@ def test_get_set():
     assert trie[non_ascii_key] == 20
 
 def test_contains():
-    trie = hat_trie.Trie('1251')
+    trie = hat_trie.Trie()
     assert 'foo' not in trie
     trie['foo'] = 5
     assert 'foo' in trie
     assert 'f' not in trie
 
 
-@pytest.mark.parametrize(("encoding",), [['cp1251'], ['utf8']])
-def test_get_set_fuzzy(encoding):
+def test_get_set_fuzzy():
     russian = 'абвгдеёжзиклмнопрстуфхцчъыьэюя'
     alphabet = russian.upper() + string.ascii_lowercase
     words = list(set([
         "".join([random.choice(alphabet) for x in range(random.randint(2,10))])
-        for y in range(1000)
+        for y in range(20000)
     ]))
 
-    trie = hat_trie.Trie(encoding)
+    trie = hat_trie.Trie()
 
     enumerated_words = list(enumerate(words))
 
@@ -55,3 +54,4 @@ def test_get_set_fuzzy(encoding):
         assert word in trie, word
         assert trie[word] == index, (word, index)
 
+    assert sorted(trie.keys()) == sorted(words)

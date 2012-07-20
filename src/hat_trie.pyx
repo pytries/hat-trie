@@ -32,6 +32,27 @@ cdef class BaseTrie:
     def setdefault(self, bytes key, int value):
         return self._setdefault(key, value)
 
+    def keys(self):
+        return list(self.iterkeys())
+
+    def iterkeys(self):
+        cdef:
+            hattrie_iter_t* it = hattrie_iter_begin(self._trie)
+            char* c_key
+            size_t val
+            size_t length
+            bytes py_str
+
+        try:
+            while not hattrie_iter_finished(it):
+                c_key = hattrie_iter_key(it, &length)
+                py_str = c_key[:length]
+                yield py_str
+                hattrie_iter_next(it)
+
+        finally:
+            hattrie_iter_free(it)
+
 
     cdef int _getitem(self, char* key) except -1:
         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
@@ -93,3 +114,6 @@ cdef class Trie(BaseTrie):
     def setdefault(self, unicode key, int value):
         cdef bytes bkey = key.encode('utf8')
         self._setdefault(bkey, value)
+
+    def keys(self):
+        return [key.decode('utf8') for key in self.iterkeys()]

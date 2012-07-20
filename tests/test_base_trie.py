@@ -59,10 +59,10 @@ def test_setdefault():
 @pytest.mark.parametrize(("encoding",), [['cp1251'], ['utf8']])
 def test_get_set_fuzzy(encoding):
     russian = 'абвгдеёжзиклмнопрстуфхцчъыьэюя'
-    alphabet = russian.upper() + string.ascii_lowercase
+    alphabet = string.ascii_lowercase + russian.upper()
     words = list(set([
         "".join([random.choice(alphabet) for x in range(random.randint(2,10))])
-        for y in range(1000)
+        for y in range(20000)
     ]))
 
     words = [w.encode(encoding) for w in words]
@@ -79,3 +79,4 @@ def test_get_set_fuzzy(encoding):
         assert word in trie, word
         assert trie[word] == index, (word, index)
 
+    assert sorted(trie.keys()) == sorted(words)
