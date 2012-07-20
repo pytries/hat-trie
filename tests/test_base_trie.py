@@ -33,6 +33,28 @@ def test_contains():
     assert b'foo' in trie
     assert b'f' not in trie
 
+def test_len():
+    trie = hat_trie.BaseTrie()
+    assert len(trie) == 0
+    trie[b'foo'] = 1
+    assert len(trie) == 1
+    trie[b'bar'] = 1
+    assert len(trie) == 2
+    trie[b'f'] = 1
+    assert len(trie) == 3
+
+def test_setdefault():
+    trie = hat_trie.BaseTrie()
+
+    with pytest.raises(KeyError):
+        trie[b'foo']
+
+    trie.setdefault(b'foo', 1)
+    assert trie[b'foo'] == 1
+    trie.setdefault(b'foo', 5)
+    assert trie[b'foo'] == 1
+
+
 
 @pytest.mark.parametrize(("encoding",), [['cp1251'], ['utf8']])
 def test_get_set_fuzzy(encoding):
