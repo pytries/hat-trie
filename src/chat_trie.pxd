@@ -1,14 +1,14 @@
 cdef extern from "../hat-trie/src/hat-trie.h":
 
-    cdef int value_t
-    cdef int size_t
+    ctypedef int value_t
+    ctypedef int size_t
 
     ctypedef struct hattrie_t:
         pass
 
-    hattrie_t* hattrie_create (void)             # Create an empty hat-trie.
+    hattrie_t* hattrie_create ()                 # Create an empty hat-trie.
     void       hattrie_free   (hattrie_t*)       # Free all memory used by a trie.
-    hattrie_t* hattrie_dup    (const hattrie_t*) # Duplicate an existing trie.
+    hattrie_t* hattrie_dup    (hattrie_t*)       # Duplicate an existing trie.
     void       hattrie_clear  (hattrie_t*)       # Remove all entries.
 
 
@@ -25,9 +25,9 @@ cdef extern from "../hat-trie/src/hat-trie.h":
     ctypedef struct hattrie_iter_t:
         pass
 
-    hattrie_iter_t* hattrie_iter_begin     (const hattrie_t*)
+    hattrie_iter_t* hattrie_iter_begin     (hattrie_t*)
     void            hattrie_iter_next      (hattrie_iter_t*)
-    bool            hattrie_iter_finished  (hattrie_iter_t*)
+    bint            hattrie_iter_finished  (hattrie_iter_t*)
     void            hattrie_iter_free      (hattrie_iter_t*)
     char*           hattrie_iter_key       (hattrie_iter_t*, size_t* len)
     value_t*        hattrie_iter_val       (hattrie_iter_t*)
