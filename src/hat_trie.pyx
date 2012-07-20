@@ -1,21 +1,20 @@
 # cython: profile=True
 
-cimport chat_trie
+from chat_trie cimport *
 
 cdef class BaseTrie:
     """
     Base HAT-Trie wrapper.
     """
 
-    cdef chat_trie.hattrie_t* _trie
+    cdef hattrie_t* _trie
 
     def __cinit__(self):
-        self._trie = chat_trie.hattrie_create()
+        self._trie = hattrie_create()
 
     def __dealloc__(self):
         if self._trie:
-            chat_trie.hattrie_free(self._trie)
-
+            hattrie_free(self._trie)
 
 
     def __getitem__(self, bytes key):
@@ -28,30 +27,30 @@ cdef class BaseTrie:
         return self._contains(key)
 
     def __len__(self):
-        return (<chat_trie._hattrie_t*> self._trie).m
+        return (<hattrie_t_*> self._trie).m
 
     def setdefault(self, bytes key, int value):
         return self._setdefault(key, value)
 
 
     cdef int _getitem(self, char* key) except -1:
-        cdef chat_trie.value_t* value_ptr = chat_trie.hattrie_tryget(self._trie, key, len(key))
+        cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
         if value_ptr == NULL:
             raise KeyError(key)
         return value_ptr[0]
 
-    cdef void _setitem(self, char* key, chat_trie.value_t value):
-        chat_trie.hattrie_get(self._trie, key, len(key))[0] = value
+    cdef void _setitem(self, char* key, value_t value):
+        hattrie_get(self._trie, key, len(key))[0] = value
 
-    cdef int _setdefault(self, char* key, chat_trie.value_t value):
-        cdef chat_trie.value_t* value_ptr = chat_trie.hattrie_tryget(self._trie, key, len(key))
+    cdef int _setdefault(self, char* key, value_t value):
+        cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
         if value_ptr == NULL:
             self._setitem(key, value)
             return value
         return value_ptr[0]
 
     cdef bint _contains(self, char* key):
-        cdef chat_trie.value_t* value_ptr = chat_trie.hattrie_tryget(self._trie, key, len(key))
+        cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
         return value_ptr != NULL
 
 

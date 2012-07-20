@@ -32,6 +32,6 @@ cdef extern from "../hat-trie/src/hat-trie.h":
     char*           hattrie_iter_key       (hattrie_iter_t*, size_t* len)
     value_t*        hattrie_iter_val       (hattrie_iter_t*)
 
-cdef struct _hattrie_t:
+cdef struct hattrie_t_:
     void* root
     size_t m      # number of stored keys
