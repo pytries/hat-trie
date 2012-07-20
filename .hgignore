@@ -4,6 +4,7 @@
 \.so$
 \.o$
 \.lo$
+\.la$
 
 ^stuff/
 \.rej$
@@ -13,3 +14,24 @@
 \.prof$
 \.coverage$
 \.git
+
+Makefile
+Makefile.in
+
+hat-trie/aclocal.m4
+hat-trie/autom4te
+hat-trie/config
+hat-trie/depcomp
+hat-trie/hat-trie-0.1.pc
+hat-trie/install-sh
+hat-trie/libtool
+hat-trie/ltmain.sh
+hat-trie/missing
+
+\.deps
+\.libs
+hat-trie/stamp-h1
+hat-trie/test/check_ahtable$
+hat-trie/test/check_hattrie$
+src/.*\.html$
+src/.*\.c$
