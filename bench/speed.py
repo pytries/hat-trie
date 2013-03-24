@@ -46,23 +46,30 @@ PREFIXES_8_1k = prefixes1k(WORDS100k, 8)
 PREFIXES_15_1k = prefixes1k(WORDS100k, 15)
 
 
-def bench(name, timer, descr='M ops/sec', op_count=0.1, repeats=3, runs=5):
-    times = []
-    for x in range(runs):
-        times.append(timer.timeit(repeats))
+def format_result(key, value, text_width):
+    key = key.ljust(text_width)
+    print("    %s %s" % (key, value))
 
-    def op_time(time):
-        return op_count*repeats / time
 
-    print("%55s:\t%0.3f%s" % (
-        name,
-        op_time(min(times)),
-        descr,
-    ))
+def bench(name, timer, descr='M ops/sec', op_count=0.1, repeats=3, runs=5,
+          text_width=28):
+    try:
+        times = []
+        for x in range(runs):
+            times.append(timer.timeit(repeats))
+
+        def op_time(time):
+            return op_count*repeats / time
+
+        val = "%0.3f%s" % (op_time(min(times)), descr)
+        format_result(name, val, text_width)
+    except (AttributeError, TypeError) as e:
+        format_result(name, "not supported", text_width)
+
 
 def create_trie():
     words = words100k()
-    trie = hat_trie.Trie('utf8')
+    trie = hat_trie.Trie()
     for word in words:
         trie[word] = 1
     return trie
