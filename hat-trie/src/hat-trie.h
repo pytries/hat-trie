@@ -48,10 +48,13 @@ value_t* hattrie_get (hattrie_t*, const char* key, size_t len);
  * exist. */
 value_t* hattrie_tryget (hattrie_t*, const char* key, size_t len);
 
+/** Delete a given key from trie. Returns 0 if successful or -1 if not found.
+ */
+int hattrie_del(hattrie_t* T, const char* key, size_t len);
 
 typedef struct hattrie_iter_t_ hattrie_iter_t;
 
-hattrie_iter_t* hattrie_iter_begin     (const hattrie_t*);
+hattrie_iter_t* hattrie_iter_begin     (const hattrie_t*, bool sorted);
 void            hattrie_iter_next      (hattrie_iter_t*);
 bool            hattrie_iter_finished  (hattrie_iter_t*);
 void            hattrie_iter_free      (hattrie_iter_t*);
