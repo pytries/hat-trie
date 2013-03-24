@@ -25,7 +25,7 @@ cdef extern from "../hat-trie/src/hat-trie.h":
     ctypedef struct hattrie_iter_t:
         pass
 
-    hattrie_iter_t* hattrie_iter_begin     (hattrie_t*)
+    hattrie_iter_t* hattrie_iter_begin     (hattrie_t*, bint sorted)
     void            hattrie_iter_next      (hattrie_iter_t*)
     bint            hattrie_iter_finished  (hattrie_iter_t*)
     void            hattrie_iter_free      (hattrie_iter_t*)

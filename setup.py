@@ -5,7 +5,7 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 
 HATTRIE_DIR = 'hat-trie/src'
-HATTRIE_FILE_NAMES = ['ahtable.c', 'hat-trie.c', 'misc.c', 'superfasthash.c']
+HATTRIE_FILE_NAMES = ['ahtable.c', 'hat-trie.c', 'misc.c', 'murmurhash3.c']
 HATTRIE_FILES = [os.path.join(HATTRIE_DIR, name) for name in HATTRIE_FILE_NAMES]
 
 setup(

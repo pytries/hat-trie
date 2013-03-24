@@ -37,7 +37,7 @@ cdef class BaseTrie:
 
     def iterkeys(self):
         cdef:
-            hattrie_iter_t* it = hattrie_iter_begin(self._trie)
+            hattrie_iter_t* it = hattrie_iter_begin(self._trie, 0)
             char* c_key
             size_t val
             size_t length
