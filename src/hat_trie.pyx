@@ -113,7 +113,7 @@ cdef class Trie(BaseTrie):
 
     def setdefault(self, unicode key, int value):
         cdef bytes bkey = key.encode('utf8')
-        self._setdefault(bkey, value)
+        return self._setdefault(bkey, value)
 
     def keys(self):
         return [key.decode('utf8') for key in self.iterkeys()]
