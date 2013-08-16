@@ -34,6 +34,8 @@ Currently implemented methods are:
 * setdefault()
 * keys()
 * iterkeys()
+* keys_with_prefix()
+* iterkeys_with_prefix()
 
 Other methods are not implemented.
 
