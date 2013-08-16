@@ -112,6 +112,7 @@ Authors & Contributors
 ----------------------
 
 * Mikhail Korobov <kmike84@gmail.com>
+* Felix Liu <numeca.yfliu@gmail.com>
 
 This module is based on `hat-trie`_ C library by Daniel Jones & contributors.
 

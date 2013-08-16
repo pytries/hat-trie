@@ -37,7 +37,28 @@ cdef class BaseTrie:
 
     def iterkeys(self):
         cdef:
-            hattrie_iter_t* it = hattrie_iter_begin(self._trie, 0)
+            hattrie_iter_t* it = hattrie_iter_with_prefix(self._trie, 0, NULL, 0)
+            char* c_key
+            size_t val
+            size_t length
+            bytes py_str
+
+        try:
+            while not hattrie_iter_finished(it):
+                c_key = hattrie_iter_key(it, &length)
+                py_str = c_key[:length]
+                yield py_str
+                hattrie_iter_next(it)
+
+        finally:
+            hattrie_iter_free(it)
+
+    def keys_with_prefix(self, prefix):
+        return list(self.iterkeys_with_prefix(prefix))
+
+    def iterkeys_with_prefix(self, prefix):
+        cdef:
+            hattrie_iter_t* it = hattrie_iter_with_prefix(self._trie, 0, prefix, len(prefix))
             char* c_key
             size_t val
             size_t length
@@ -117,3 +138,6 @@ cdef class Trie(BaseTrie):
 
     def keys(self):
         return [key.decode('utf8') for key in self.iterkeys()]
+        
+    def keys_with_prefix(self, prefix):
+        return [key.decode('utf8') for key in self.iterkeys_with_prefix(prefix)]

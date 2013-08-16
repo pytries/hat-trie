@@ -33,6 +33,9 @@ void       hattrie_free   (hattrie_t*);       //< Free all memory used by a trie
 hattrie_t* hattrie_dup    (const hattrie_t*); //< Duplicate an existing trie.
 void       hattrie_clear  (hattrie_t*);       //< Remove all entries.
 
+/** number of inserted keys
+ */
+size_t hattrie_size (hattrie_t*);
 
 /** Find the given key in the trie, inserting it if it does not exist, and
  * returning a pointer to it's key.
@@ -43,10 +46,21 @@ void       hattrie_clear  (hattrie_t*);       //< Remove all entries.
  */
 value_t* hattrie_get (hattrie_t*, const char* key, size_t len);
 
-
 /** Find a given key in the table, returning a NULL pointer if it does not
  * exist. */
 value_t* hattrie_tryget (hattrie_t*, const char* key, size_t len);
+
+/** hattrie_walk callback signature */
+typedef int (*hattrie_walk_cb)(const char* key, size_t len, value_t* val, void* user_data);
+
+/** hattrie_walk callback return values, controls whether should stop the walk or not */
+#define hattrie_walk_stop 0
+#define hattrie_walk_continue 1
+
+/** Find stored keys which are prefices of key, and invoke callback for every found key and val.
+ *  The invocation order is: short key to long key.
+ */
+void hattrie_walk (hattrie_t*, const char* key, size_t len, void* user_data, hattrie_walk_cb);
 
 /** Delete a given key from trie. Returns 0 if successful or -1 if not found.
  */
@@ -61,10 +75,12 @@ void            hattrie_iter_free      (hattrie_iter_t*);
 const char*     hattrie_iter_key       (hattrie_iter_t*, size_t* len);
 value_t*        hattrie_iter_val       (hattrie_iter_t*);
 
+/** Note the hattrie_iter_key() for prefixed search gets the suffix instead of the whole key
+ */
+hattrie_iter_t* hattrie_iter_with_prefix(const hattrie_t*, bool sorted, const char* prefix, size_t prefix_len);
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif
-
-

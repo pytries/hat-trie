@@ -26,7 +26,7 @@ char** ds;
 
 hattrie_t* T;
 str_map* M;
-
+int have_error = 0;
 
 void setup()
 {
@@ -88,6 +88,7 @@ void test_hattrie_insert()
         if (*u != v) {
             fprintf(stderr, "[error] tally mismatch (reported: %lu, correct: %lu)\n",
                             *u, v);
+            have_error = 1;
         }
     }
 
@@ -99,6 +100,7 @@ void test_hattrie_insert()
         if (u) {
             fprintf(stderr, "[error] item %zu still found in trie after delete\n",
                     j);
+            have_error = 1;
         }
     }
 
@@ -131,9 +133,11 @@ void test_hattrie_iteration()
         if (*u != v) {
             if (v == 0) {
                 fprintf(stderr, "[error] incorrect iteration (%lu, %lu)\n", *u, v);
+                have_error = 1;
             }
             else {
                 fprintf(stderr, "[error] incorrect iteration tally (%lu, %lu)\n", *u, v);
+                have_error = 1;
             }
         }
 
@@ -147,6 +151,7 @@ void test_hattrie_iteration()
     if (count != M->m) {
         fprintf(stderr, "[error] iterated through %zu element, expected %zu\n",
                 count, M->m);
+        have_error = 1;
     }
 
     hattrie_iter_free(i);
@@ -187,12 +192,13 @@ void test_hattrie_sorted_iteration()
         ++count;
 
         key = hattrie_iter_key(i, &len);
-        
+
         /* memory for key may be changed on iter, copy it */
         strncpy(key_copy, key, len);
 
         if (prev_key != NULL && cmpkey(prev_key, prev_len, key, len) > 0) {
             fprintf(stderr, "[error] iteration is not correctly ordered.\n");
+            have_error = 1;
         }
 
         u = hattrie_iter_val(i);
@@ -201,9 +207,11 @@ void test_hattrie_sorted_iteration()
         if (*u != v) {
             if (v == 0) {
                 fprintf(stderr, "[error] incorrect iteration (%lu, %lu)\n", *u, v);
+                have_error = 1;
             }
             else {
                 fprintf(stderr, "[error] incorrect iteration tally (%lu, %lu)\n", *u, v);
+                have_error = 1;
             }
         }
 
@@ -217,6 +225,7 @@ void test_hattrie_sorted_iteration()
     if (count != M->m) {
         fprintf(stderr, "[error] iterated through %zu element, expected %zu\n",
                 count, M->m);
+        have_error = 1;        
     }
 
     hattrie_iter_free(i);
@@ -248,11 +257,66 @@ void test_trie_non_ascii()
 }
 
 
+typedef struct {
+    int size;
+    size_t lens[10];
+    value_t vals[10];
+} trie_walk_data_t;
+
+
+static int trie_walk_cb(const char* key __attribute__((unused)), size_t len, value_t* val, void* data) {
+    trie_walk_data_t* d = data;
+    d->lens[d->size] = len;
+    d->vals[d->size] = *val;
+    d->size++;
+    return hattrie_walk_continue;
+}
+
+
+void test_trie_walk()
+{
+    fprintf(stderr, "checking tryget_longest_match... \n");
+
+    hattrie_t* T = hattrie_create();
+    char* txt1 = "hello world1";
+    char* txt2 = "hello world2";
+    char* txt3 = "hello";
+    value_t* val;
+
+    val = hattrie_get(T, txt1, strlen(txt1));
+    *val = 1;
+    val = hattrie_get(T, txt2, strlen(txt2));
+    *val = 2;
+    val = hattrie_get(T, txt3, strlen(txt3));
+    *val = 3;
+
+#define EXPECT(check) \
+    if (!(check)) {\
+        fprintf(stderr, "[error] %s:%d: expect failure\n", __FILE__, __LINE__);\
+        have_error = 1;\
+    }
+
+    trie_walk_data_t data = {
+        .size = 0
+    };
+    char* txt = "hello world20";
+    hattrie_walk(T, txt, strlen(txt), &data, trie_walk_cb);
+    EXPECT(data.size == 2);
+    EXPECT(data.lens[0] = strlen(txt3));
+    EXPECT(data.vals[0] == 3);
+    EXPECT(data.lens[1] = strlen(txt2));
+    EXPECT(data.vals[1] == 2);
+#undef EXPECT
+
+    hattrie_free(T);
+}
+
 
 
 int main()
 {
     test_trie_non_ascii();
+    test_trie_walk();
 
     setup();
     test_hattrie_insert();
@@ -264,10 +328,8 @@ int main()
     test_hattrie_sorted_iteration();
     teardown();
 
+    if (have_error) {
+        return -1;
+    }
     return 0;
 }
-
-
-
-
-
