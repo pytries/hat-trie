@@ -5,6 +5,9 @@ HAT-Trie structure for Python (2.x and 3.x).
 
 Uses `hat-trie`_ C library.
 
+.. image:: https://travis-ci.org/kmike/hat-trie.png?branch=master
+    :target: https://travis-ci.org/kmike/hat-trie
+
 .. _hat-trie: https://github.com/dcjones/hat-trie
 
 Installation
@@ -13,6 +16,8 @@ Installation
 ::
 
     pip install hat-trie
+
+Note that it currently requires Cython to build.
 
 Usage
 =====
