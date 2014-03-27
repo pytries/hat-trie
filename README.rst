@@ -3,7 +3,7 @@ hat-trie
 
 HAT-Trie structure for Python (2.x and 3.x).
 
-Uses `hat-trie`_ C library.
+This package is a Python wrapper for `hat-trie`_ C library.
 
 .. image:: https://travis-ci.org/kmike/hat-trie.png?branch=master
     :target: https://travis-ci.org/kmike/hat-trie
