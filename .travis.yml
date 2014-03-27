@@ -1,0 +1,15 @@
+language: python
+python:
+  - "3.4"
+  - "3.3"
+  - "3.2"
+  - "2.7"
+  - "2.6"
+#  - "pypy"
+
+install:
+  - pip install cython
+  - python setup.py install
+
+# command to run tests, e.g. python setup.py test
+script: py.test
