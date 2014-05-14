@@ -84,8 +84,8 @@ Contributing
 
 Development happens at github and bitbucket:
 
-* https://github.com/kmike/datrie
-* https://bitbucket.org/kmike/datrie
+* https://github.com/kmike/hat-trie
+* https://bitbucket.org/kmike/hat-trie
 
 The main issue tracker is at github.
 
