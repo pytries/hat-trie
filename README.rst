@@ -82,15 +82,11 @@ datrie is also more memory efficient.
 Contributing
 ============
 
-Development happens at github and bitbucket:
+Development happens at github:
 
 * https://github.com/kmike/hat-trie
-* https://bitbucket.org/kmike/hat-trie
 
-The main issue tracker is at github.
-
-Feel free to submit ideas, bugs, pull requests (git or hg) or
-regular patches.
+Feel free to submit ideas, bugs, pull requests or regular patches.
 
 
 Running tests and benchmarks
