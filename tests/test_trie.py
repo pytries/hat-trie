@@ -6,7 +6,7 @@ import random
 import pytest
 import hat_trie
 
-def test_get_set():
+def test_getitem_set():
     trie = hat_trie.Trie()
     trie['foo'] = 5
     trie['bar'] = 10
@@ -25,6 +25,19 @@ def test_get_set():
     non_ascii_key = 'вася'
     trie[non_ascii_key] = 20
     assert trie[non_ascii_key] == 20
+
+def test_get():
+    trie = hat_trie.Trie()
+
+    assert trie.get('foo') == -1
+    assert trie.get('bar') == -1
+    assert trie.get('foo', 5) == 5
+
+    trie['foo'] = 5
+    trie['bar'] = 10
+
+    assert trie.get('foo') == 5
+    assert trie.get('bar') == 10
 
 def test_contains():
     trie = hat_trie.Trie()

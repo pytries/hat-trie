@@ -29,6 +29,12 @@ cdef class BaseTrie:
     def __len__(self):
         return (<hattrie_t_*> self._trie).m
 
+    def get(self, bytes key, value=-1):
+        try:
+            return self._getitem(key)
+        except KeyError:
+            return value
+
     def setdefault(self, bytes key, int value):
         return self._setdefault(key, value)
 
@@ -110,6 +116,13 @@ cdef class Trie(BaseTrie):
     def __setitem__(self, unicode key, int value):
         cdef bytes bkey = key.encode('utf8')
         self._setitem(bkey, value)
+
+    def get(self, unicode key, value=-1):
+        cdef bytes bkey = key.encode('utf8')
+        try:
+            return self._getitem(bkey)
+        except KeyError:
+            return value
 
     def setdefault(self, unicode key, int value):
         cdef bytes bkey = key.encode('utf8')
