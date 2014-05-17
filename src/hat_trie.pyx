@@ -38,12 +38,12 @@ cdef class BaseTrie:
     def setdefault(self, bytes key, int value):
         return self._setdefault(key, value)
 
-    def keys(self):
-        return list(self.iterkeys())
+    def keys(self, prefix = ''):
+        return list(self.iterkeys(prefix))
 
-    def iterkeys(self):
+    def iterkeys(self, prefix = ''):
         cdef:
-            hattrie_iter_t* it = hattrie_iter_begin(self._trie, 0)
+            hattrie_iter_t* it = hattrie_iter_with_prefix(self._trie, 0, prefix, len(prefix))
             char* c_key
             size_t val
             size_t length
@@ -58,7 +58,6 @@ cdef class BaseTrie:
 
         finally:
             hattrie_iter_free(it)
-
 
     cdef int _getitem(self, char* key) except -1:
         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
@@ -128,5 +127,5 @@ cdef class Trie(BaseTrie):
         cdef bytes bkey = key.encode('utf8')
         return self._setdefault(bkey, value)
 
-    def keys(self):
-        return [key.decode('utf8') for key in self.iterkeys()]
+    def keys(self, prefix = ''):
+        return [key.decode('utf8') for key in self.iterkeys(prefix)]

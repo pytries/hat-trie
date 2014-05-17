@@ -39,6 +39,8 @@ Currently implemented methods are:
 * setdefault()
 * keys()
 * iterkeys()
+* keys_with_prefix()
+* iterkeys_with_prefix()
 
 Other methods are not implemented.
 
@@ -113,6 +115,7 @@ Authors & Contributors
 ----------------------
 
 * Mikhail Korobov <kmike84@gmail.com>
+* Felix Liu <numeca.yfliu@gmail.com>
 
 This module is based on `hat-trie`_ C library by Daniel Jones & contributors.
 

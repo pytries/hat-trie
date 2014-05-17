@@ -63,10 +63,10 @@ static trie_node_t* alloc_trie_node(hattrie_t* T, node_ptr child)
     trie_node_t* node = malloc_or_die(sizeof(trie_node_t));
     node->flag = NODE_TYPE_TRIE;
     node->val  = 0;
-    
+
     /* pass T to allow custom allocator for trie. */
     HT_UNUSED(T); /* unused now */
-    
+
     size_t i;
     for (i = 0; i < NODE_CHILDS; ++i) node->xs[i] = child;
     return node;
@@ -120,7 +120,7 @@ static node_ptr hattrie_find(hattrie_t* T, const char **key, size_t *len)
     if (*len == 0) return parent;
 
     node_ptr node = hattrie_consume(&parent, key, len, 1);
-    
+
     /* if the trie node consumes value, use it */
     if (*node.flag & NODE_TYPE_TRIE) {
         if (!(node.t->flag & NODE_HAS_VAL)) {
@@ -131,10 +131,10 @@ static node_ptr hattrie_find(hattrie_t* T, const char **key, size_t *len)
 
     /* pure bucket holds only key suffixes, skip current char */
     if (*node.flag & NODE_TYPE_PURE_BUCKET) {
-        *key += 1; 
+        *key += 1;
         *len -= 1;
     }
-    
+
     /* do not scan bucket, it's not needed for this operation */
     return node;
 }
@@ -179,6 +179,13 @@ void hattrie_free(hattrie_t* T)
     hattrie_free_node(T->root);
     free(T);
 }
+
+
+size_t hattrie_size(hattrie_t* T)
+{
+    return T->m;
+}
+
 
 /* Perform one split operation on the given node with the given parent.
  */
@@ -391,13 +398,67 @@ value_t* hattrie_tryget(hattrie_t* T, const char* key, size_t len)
     if (node.flag == NULL) {
         return NULL;
     }
-    
+
     /* if the trie node consumes value, use it */
     if (*node.flag & NODE_TYPE_TRIE) {
         return &node.t->val;
     }
-    
+
     return ahtable_tryget(node.b, key, len);
+}
+
+
+void hattrie_walk (hattrie_t* T, const char* key, size_t len, void* user_data, hattrie_walk_cb cb) {
+    unsigned char* k = (unsigned char*)key;
+    node_ptr node = T->root;
+    size_t i, j;
+    ahtable_iter_t* it;
+
+    /* go down until a bucket is reached */
+    for (i = 0; i < len; i++, k++) {
+        if (!(*node.flag & NODE_TYPE_TRIE))
+            break;
+        node = node.t->xs[*k];
+        if (*node.flag & NODE_HAS_VAL) {
+            if (hattrie_walk_stop == cb(key, i, &node.t->val, user_data))
+                return;
+        }
+    }
+    if (i == len)
+        return;
+
+    assert(i);
+    if (*node.flag & NODE_TYPE_HYBRID_BUCKET) {
+        i--;
+        k--;
+    } else {
+        assert(*node.flag & NODE_TYPE_PURE_BUCKET);
+    }
+
+    /* dict order ensured short => long */
+    it = ahtable_iter_begin(node.b, true);
+    for(; !ahtable_iter_finished(it); ahtable_iter_next(it)) {
+        size_t stored_len;
+        unsigned char* stored_key = (unsigned char*)ahtable_iter_key(it, &stored_len);
+        int matched = 1;
+        if (stored_len + i > len) {
+            continue;
+        }
+        for (j = 0; j < stored_len; j++) {
+            if (stored_key[j] != k[j]) {
+                matched = 0;
+                break;
+            }
+        }
+        if (matched) {
+            value_t* val = ahtable_iter_val(it);
+            if (hattrie_walk_stop == cb(key, i + stored_len, val, user_data)) {
+                ahtable_iter_free(it);
+                return;
+            }
+        }
+    }
+    ahtable_iter_free(it);
 }
 
 
@@ -411,7 +472,7 @@ int hattrie_del(hattrie_t* T, const char* key, size_t len)
     if (node.flag == NULL) {
         return -1;
     }
-    
+
     /* if consumed on a trie node, clear the value */
     if (*node.flag & NODE_TYPE_TRIE) {
         return hattrie_clrval(T, node);
@@ -421,10 +482,10 @@ int hattrie_del(hattrie_t* T, const char* key, size_t len)
     size_t m_old = ahtable_size(node.b);
     int ret =  ahtable_del(node.b, key, len);
     T->m -= (m_old - ahtable_size(node.b));
-    
+
     /* merge empty buckets */
     /*! \todo */
-    
+
     return ret;
 }
 
@@ -460,6 +521,11 @@ struct hattrie_iter_t_
     bool sorted;
     ahtable_iter_t* i;
     hattrie_node_stack_t* stack;
+
+    // subtree inside a table
+    // store remaining prefix for filtering nodes not matching it
+    char* prefix;
+    size_t prefix_len;
 };
 
 
@@ -507,7 +573,7 @@ static void hattrie_iter_nextnode(hattrie_iter_t* i)
         /* push all child nodes from right to left */
         int j;
         for (j = NODE_MAXCHAR; j >= 0; --j) {
-            
+
             /* skip repeated pointers to hybrid bucket */
             if (j < NODE_MAXCHAR && node.t->xs[j].t == node.t->xs[j + 1].t) continue;
 
@@ -524,17 +590,66 @@ static void hattrie_iter_nextnode(hattrie_iter_t* i)
         if (*node.flag & NODE_TYPE_PURE_BUCKET) {
             hattrie_iter_pushchar(i, level, c);
         }
-        else {
+        else if (level) {
             i->level = level - 1;
         }
-
         i->i = ahtable_iter_begin(node.b, i->sorted);
+
     }
+}
+
+
+/** next non-nil-key node
+ * TODO pick a better name
+ */
+static void hattrie_iter_step(hattrie_iter_t* i)
+{
+    while (((i->i == NULL || ahtable_iter_finished(i->i)) && !i->has_nil_key) &&
+           i->stack != NULL ) {
+
+        ahtable_iter_free(i->i);
+        i->i = NULL;
+        hattrie_iter_nextnode(i);
+    }
+
+    if (i->i != NULL && ahtable_iter_finished(i->i)) {
+        ahtable_iter_free(i->i);
+        i->i = NULL;
+    }
+}
+
+static bool hattrie_iter_prefix_not_match(hattrie_iter_t* i)
+{
+    if (hattrie_iter_finished(i)) {
+        return false; // can not advance the iter
+    }
+    if (i->level >= i->prefix_len) {
+        return memcmp(i->key, i->prefix, i->prefix_len);
+    } else if (i->has_nil_key) {
+        return true; // subkey too short
+    }
+
+    size_t sublen;
+    const char* subkey;
+    subkey = ahtable_iter_key(i->i, &sublen);
+    if (i->level + sublen < i->prefix_len) {
+        return true; // subkey too short
+    }
+    return memcmp(i->key, i->prefix, i->level) ||
+           memcmp(subkey, i->prefix + i->level, (i->prefix_len - i->level));
 }
 
 
 hattrie_iter_t* hattrie_iter_begin(const hattrie_t* T, bool sorted)
 {
+	return hattrie_iter_with_prefix(T, sorted, NULL, 0);
+}
+
+
+hattrie_iter_t* hattrie_iter_with_prefix(const hattrie_t* T, bool sorted, const char* prefix, size_t prefix_len)
+{
+    node_ptr node = hattrie_find((hattrie_t*)T, &prefix, &prefix_len);
+
     hattrie_iter_t* i = malloc_or_die(sizeof(hattrie_iter_t));
     i->T = T;
     i->sorted = sorted;
@@ -545,24 +660,23 @@ hattrie_iter_t* hattrie_iter_begin(const hattrie_t* T, bool sorted)
     i->has_nil_key = false;
     i->nil_val     = 0;
 
+    i->prefix_len  = prefix_len;
+    if (prefix_len) {
+        i->prefix  = (char*)malloc_or_die(prefix_len);
+        memcpy(i->prefix, prefix, prefix_len);
+    } else {
+        i->prefix  = NULL;
+    }
+
     i->stack = malloc_or_die(sizeof(hattrie_node_stack_t));
     i->stack->next   = NULL;
-    i->stack->node   = T->root;
+    i->stack->node   = node;
     i->stack->c      = '\0';
     i->stack->level  = 0;
 
-
-    while (((i->i == NULL || ahtable_iter_finished(i->i)) && !i->has_nil_key) &&
-           i->stack != NULL ) {
-
-        ahtable_iter_free(i->i);
-        i->i = NULL;
-        hattrie_iter_nextnode(i);
-    }
-
-    if (i->i != NULL && ahtable_iter_finished(i->i)) {
-        ahtable_iter_free(i->i);
-        i->i = NULL;
+    hattrie_iter_step(i);
+    if (i->prefix_len && hattrie_iter_prefix_not_match(i)) {
+        hattrie_iter_next(i);
     }
 
     return i;
@@ -571,29 +685,20 @@ hattrie_iter_t* hattrie_iter_begin(const hattrie_t* T, bool sorted)
 
 void hattrie_iter_next(hattrie_iter_t* i)
 {
-    if (hattrie_iter_finished(i)) return;
+    do {
+        if (hattrie_iter_finished(i)) return;
 
-    if (i->i != NULL && !ahtable_iter_finished(i->i)) {
-        ahtable_iter_next(i->i);
-    }
-    else if (i->has_nil_key) {
-        i->has_nil_key = false;
-        i->nil_val = 0;
-        hattrie_iter_nextnode(i);
-    }
+        if (i->i != NULL && !ahtable_iter_finished(i->i)) {
+            ahtable_iter_next(i->i);
+        }
+        else if (i->has_nil_key) {
+            i->has_nil_key = false;
+            i->nil_val = 0;
+            hattrie_iter_nextnode(i);
+        }
 
-    while (((i->i == NULL || ahtable_iter_finished(i->i)) && !i->has_nil_key) &&
-           i->stack != NULL ) {
-
-        ahtable_iter_free(i->i);
-        i->i = NULL;
-        hattrie_iter_nextnode(i);
-    }
-
-    if (i->i != NULL && ahtable_iter_finished(i->i)) {
-        ahtable_iter_free(i->i);
-        i->i = NULL;
-    }
+        hattrie_iter_step(i);
+    } while (i->prefix_len && hattrie_iter_prefix_not_match(i));
 }
 
 
@@ -613,6 +718,10 @@ void hattrie_iter_free(hattrie_iter_t* i)
         next = i->stack->next;
         free(i->stack);
         i->stack = next;
+    }
+
+    if (i->prefix_len) {
+        free(i->prefix);
     }
 
     free(i->key);
@@ -641,8 +750,8 @@ const char* hattrie_iter_key(hattrie_iter_t* i, size_t* len)
     memcpy(i->key + i->level, subkey, sublen);
     i->key[i->level + sublen] = '\0';
 
-    *len = i->level + sublen;
-    return i->key;
+    *len = i->level + sublen - i->prefix_len;
+    return i->key + i->prefix_len;
 }
 
 
@@ -654,6 +763,3 @@ value_t* hattrie_iter_val(hattrie_iter_t* i)
 
     return ahtable_iter_val(i->i);
 }
-
-
-

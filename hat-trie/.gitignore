@@ -1,0 +1,11 @@
+*.m4
+*.o
+*.lo
+*.a
+*.la
+config.*
+.DS_Store
+.deps
+.libs
+Makefile
+
