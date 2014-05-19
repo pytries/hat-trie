@@ -2,6 +2,8 @@
 
 from chat_trie cimport *
 
+cimport cpython
+
 cdef class BaseTrie:
     """
     Base HAT-Trie wrapper.
@@ -81,9 +83,9 @@ cdef class BaseTrie:
         return value_ptr != NULL
 
 
-cdef class Trie(BaseTrie):
+cdef class IntTrie(BaseTrie):
     """
-    HAT-Trie with unicode support.
+    HAT-Trie with unicode support that stores int as value.
 
     XXX: Internal encoding is hardcoded as UTF8. This is the fastest
     encoding that can handle all unicode symbols and doesn't have
@@ -131,3 +133,83 @@ cdef class Trie(BaseTrie):
     def iterkeys(self):
         for key in BaseTrie.iterkeys(self):
             yield key.decode('utf8')
+
+
+cdef class Trie(BaseTrie):
+    """
+    HAT-Trie with unicode support and arbitrary values.
+
+    XXX: Internal encoding is hardcoded as UTF8. This is the fastest
+    encoding that can handle all unicode symbols and doesn't have
+    zero bytes.
+
+    This may seem sub-optimal because it is multibyte encoding;
+    single-byte language-specific encoding (such as cp1251)
+    seems to be faster. But this is not the case because:
+
+    1) the bottleneck of this wrapper is string encoding, not trie traversal;
+    2) python's unicode encoding utilities are optimized for utf8;
+    3) users will have to select language-specific encoding for the trie;
+    4) non-hardcoded encoding causes extra overhead and prevents cython
+       optimizations.
+
+    That's why hardcoded utf8 is up to 9 times faster than configurable cp1251.
+
+    XXX: char-walking utilities may become tricky with multibyte
+    internal encoding.
+    """
+
+    def __dealloc__(self):
+        cdef cpython.PyObject *o
+        if self._trie:
+            for k in self.iterkeys():
+                o = <cpython.PyObject *> self._getitem(k)
+                cpython.Py_XDECREF(o)
+
+
+    def __getitem__(self, unicode key):
+        cdef bytes bkey = key.encode('utf8')
+        return self._fromvalue(self._getitem(bkey))
+
+    def __contains__(self, unicode key):
+        cdef bytes bkey = key.encode('utf8')
+        return self._contains(bkey)
+
+    def __setitem__(self, unicode key, value):
+        cdef bytes bkey = key.encode('utf8')
+        self._setitem(bkey, self._tovalue(value))
+
+    def get(self, unicode key, value=None):
+        cdef bytes bkey = key.encode('utf8')
+        try:
+            return self._fromvalue(self._getitem(bkey))
+        except KeyError:
+            return value
+
+    def setdefault(self, unicode key, value):
+        cdef bytes bkey = key.encode('utf8')
+        return self._setdefault(bkey, self._tovalue(value))
+
+    def iterkeys(self):
+        for key in BaseTrie.iterkeys(self):
+            yield key.decode('utf8')
+
+    cdef void _setitem(self, char* key, value_t value):
+        cdef cpython.PyObject *o
+        cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
+        if value_ptr != NULL:
+            o = <cpython.PyObject *> value_ptr[0]
+            cpython.Py_XDECREF(o)
+        hattrie_get(self._trie, key, len(key))[0] = value
+
+    cdef object _fromvalue(self, value_t value):
+        cdef cpython.PyObject *o
+        o = <cpython.PyObject *> value
+        cpython.Py_XINCREF(o)
+        return <object> o
+
+    cdef value_t _tovalue(self, object obj):
+        cdef cpython.PyObject *o
+        o = <cpython.PyObject *> obj
+        cpython.Py_XINCREF(o)
+        return <value_t> o
