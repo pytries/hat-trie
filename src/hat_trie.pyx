@@ -86,26 +86,26 @@ cdef class BaseTrie:
 cdef class IntTrie(BaseTrie):
     """
     HAT-Trie with unicode support that stores int as value.
-
-    XXX: Internal encoding is hardcoded as UTF8. This is the fastest
-    encoding that can handle all unicode symbols and doesn't have
-    zero bytes.
-
-    This may seem sub-optimal because it is multibyte encoding;
-    single-byte language-specific encoding (such as cp1251)
-    seems to be faster. But this is not the case because:
-
-    1) the bottleneck of this wrapper is string encoding, not trie traversal;
-    2) python's unicode encoding utilities are optimized for utf8;
-    3) users will have to select language-specific encoding for the trie;
-    4) non-hardcoded encoding causes extra overhead and prevents cython
-       optimizations.
-
-    That's why hardcoded utf8 is up to 9 times faster than configurable cp1251.
-
-    XXX: char-walking utilities may become tricky with multibyte
-    internal encoding.
     """
+
+    # XXX: Internal encoding is hardcoded as UTF8. This is the fastest
+    # encoding that can handle all unicode symbols and doesn't have
+    # zero bytes.
+
+    # This may seem sub-optimal because it is multibyte encoding;
+    # single-byte language-specific encoding (such as cp1251)
+    # seems to be faster. But this is not the case because:
+
+    # 1) the bottleneck of this wrapper is string encoding, not trie traversal;
+    # 2) python's unicode encoding utilities are optimized for utf8;
+    # 3) users will have to select language-specific encoding for the trie;
+    # 4) non-hardcoded encoding causes extra overhead and prevents cython
+    #    optimizations.
+
+    # That's why hardcoded utf8 is up to 9 times faster than configurable cp1251.
+
+    # XXX: char-walking utilities may become tricky with multibyte
+    # internal encoding.
 
     def __getitem__(self, unicode key):
         cdef bytes bkey = key.encode('utf8')
@@ -138,26 +138,10 @@ cdef class IntTrie(BaseTrie):
 cdef class Trie(BaseTrie):
     """
     HAT-Trie with unicode support and arbitrary values.
-
-    XXX: Internal encoding is hardcoded as UTF8. This is the fastest
-    encoding that can handle all unicode symbols and doesn't have
-    zero bytes.
-
-    This may seem sub-optimal because it is multibyte encoding;
-    single-byte language-specific encoding (such as cp1251)
-    seems to be faster. But this is not the case because:
-
-    1) the bottleneck of this wrapper is string encoding, not trie traversal;
-    2) python's unicode encoding utilities are optimized for utf8;
-    3) users will have to select language-specific encoding for the trie;
-    4) non-hardcoded encoding causes extra overhead and prevents cython
-       optimizations.
-
-    That's why hardcoded utf8 is up to 9 times faster than configurable cp1251.
-
-    XXX: char-walking utilities may become tricky with multibyte
-    internal encoding.
     """
+
+    # XXX: Internal encoding is hardcoded as UTF8. See note in IntTrie
+    # for more details.
 
     def __dealloc__(self):
         cdef:
