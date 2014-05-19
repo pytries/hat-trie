@@ -160,11 +160,24 @@ cdef class Trie(BaseTrie):
     """
 
     def __dealloc__(self):
-        cdef cpython.PyObject *o
-        if self._trie:
-            for k in self.iterkeys():
-                o = <cpython.PyObject *> self._getitem(k)
+        cdef:
+            hattrie_iter_t* it = hattrie_iter_begin(self._trie, 0)
+            char* c_key
+            size_t val
+            size_t length
+            bytes py_str
+            cpython.PyObject *o
+
+        try:
+            while not hattrie_iter_finished(it):
+                c_key = hattrie_iter_key(it, &length)
+                py_str = c_key[:length]
+                o = <cpython.PyObject *> hattrie_get(self._trie, c_key, length)[0]
                 cpython.Py_XDECREF(o)
+                hattrie_iter_next(it)
+
+        finally:
+            hattrie_iter_free(it)
 
 
     def __getitem__(self, unicode key):
@@ -205,7 +218,6 @@ cdef class Trie(BaseTrie):
     cdef object _fromvalue(self, value_t value):
         cdef cpython.PyObject *o
         o = <cpython.PyObject *> value
-        cpython.Py_XINCREF(o)
         return <object> o
 
     cdef value_t _tovalue(self, object obj):
