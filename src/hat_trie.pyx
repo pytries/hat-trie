@@ -155,7 +155,6 @@ cdef class Trie(BaseTrie):
         try:
             while not hattrie_iter_finished(it):
                 c_key = hattrie_iter_key(it, &length)
-                py_str = c_key[:length]
                 o = <cpython.PyObject *> hattrie_get(self._trie, c_key, length)[0]
                 cpython.Py_XDECREF(o)
                 hattrie_iter_next(it)
