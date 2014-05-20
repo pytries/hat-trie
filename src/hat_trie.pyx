@@ -62,7 +62,7 @@ cdef class BaseTrie:
             hattrie_iter_free(it)
 
 
-    cdef int _getitem(self, char* key) except -1:
+    cdef value_t _getitem(self, char* key) except -1:
         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
         if value_ptr == NULL:
             raise KeyError(key)
@@ -71,7 +71,7 @@ cdef class BaseTrie:
     cdef void _setitem(self, char* key, value_t value):
         hattrie_get(self._trie, key, len(key))[0] = value
 
-    cdef int _setdefault(self, char* key, value_t value):
+    cdef value_t _setdefault(self, char* key, value_t value):
         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
         if value_ptr == NULL:
             self._setitem(key, value)
