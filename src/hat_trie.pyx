@@ -149,7 +149,7 @@ cdef class Trie(BaseTrie):
 
         try:
             while not hattrie_iter_finished(it):
-                o = <cpython.PyObject *> hattrie_iter_val(it)
+                o = <cpython.PyObject *> hattrie_iter_val(it)[0]
                 cpython.Py_XDECREF(o)
                 hattrie_iter_next(it)
 

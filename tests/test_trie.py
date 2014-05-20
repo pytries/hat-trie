@@ -77,3 +77,33 @@ def test_get_set_fuzzy():
         assert trie[word] == index, (word, index)
 
     assert sorted(trie.keys()) == sorted(words)
+
+def test_leak():
+    import sys
+
+    values = list(string.ascii_lowercase)
+    # Using "list(map())" to avoid the list comprehension variable
+    # which increases the reference count.
+    counts = list(map(sys.getrefcount, values))
+
+    trie = hat_trie.Trie()
+
+    for v in values:
+        trie['foo'] = v
+    # Python's for loop variables leak scope into the function body
+    del v
+
+    count = sys.getrefcount(trie['foo'])
+    for i in range(10):
+        current_count = sys.getrefcount(trie['foo'])
+        assert current_count == count
+
+    count0 = sys.getrefcount(values[0])
+    count_last = sys.getrefcount(values[-1])
+    assert count0 == counts[0]
+    assert count_last == counts[-1] + 1
+
+    del trie
+
+    after = list(map(sys.getrefcount, values))
+    assert after == counts
