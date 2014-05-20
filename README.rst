@@ -36,6 +36,7 @@ Currently implemented methods are:
 * __setitem__()
 * __contains__()
 * __len__()
+* get()
 * setdefault()
 * keys()
 * iterkeys()
