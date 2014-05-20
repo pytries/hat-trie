@@ -36,6 +36,7 @@ Currently implemented methods are:
 * __setitem__()
 * __contains__()
 * __len__()
+* get()
 * setdefault()
 * keys()
 * iterkeys()
@@ -113,6 +114,7 @@ Authors & Contributors
 ----------------------
 
 * Mikhail Korobov <kmike84@gmail.com>
+* Brandon Forehand <b4hand@users.sf.net>
 
 This module is based on `hat-trie`_ C library by Daniel Jones & contributors.
 
