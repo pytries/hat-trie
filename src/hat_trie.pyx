@@ -144,13 +144,8 @@ cdef class Trie(BaseTrie):
     # for more details.
 
     def __dealloc__(self):
-        cdef:
-            hattrie_iter_t* it = hattrie_iter_begin(self._trie, 0)
-            char* c_key
-            size_t val
-            size_t length
-            bytes py_str
-            cpython.PyObject *o
+        cdef hattrie_iter_t* it = hattrie_iter_begin(self._trie, 0)
+        cdef cpython.PyObject *o
 
         try:
             while not hattrie_iter_finished(it):
