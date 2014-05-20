@@ -52,7 +52,7 @@ def test_iterkeys():
     non_ascii_key = 'вася'
     trie[non_ascii_key] = 20
 
-    assert trie.iterkeys().next() == non_ascii_key
+    assert next(trie.iterkeys()) == non_ascii_key
 
 def test_get_set_fuzzy():
     russian = 'абвгдеёжзиклмнопрстуфхцчъыьэюя'
