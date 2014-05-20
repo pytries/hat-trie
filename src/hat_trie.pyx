@@ -128,5 +128,6 @@ cdef class Trie(BaseTrie):
         cdef bytes bkey = key.encode('utf8')
         return self._setdefault(bkey, value)
 
-    def keys(self):
-        return [key.decode('utf8') for key in self.iterkeys()]
+    def iterkeys(self):
+        for key in BaseTrie.iterkeys(self):
+            yield key.decode('utf8')

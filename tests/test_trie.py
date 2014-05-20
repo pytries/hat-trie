@@ -46,6 +46,13 @@ def test_contains():
     assert 'foo' in trie
     assert 'f' not in trie
 
+def test_iterkeys():
+    trie = hat_trie.Trie()
+
+    non_ascii_key = 'вася'
+    trie[non_ascii_key] = 20
+
+    assert trie.iterkeys().next() == non_ascii_key
 
 def test_get_set_fuzzy():
     russian = 'абвгдеёжзиклмнопрстуфхцчъыьэюя'
