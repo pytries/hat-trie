@@ -29,8 +29,8 @@ def test_getitem_set():
 def test_get():
     trie = hat_trie.IntTrie()
 
-    assert trie.get('foo') is -1 
-    assert trie.get('bar') is -1
+    assert trie.get('foo') == -1
+    assert trie.get('bar') == -1
     assert trie.get('foo', 5) == 5
 
     trie['foo'] = 5
