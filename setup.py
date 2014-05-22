@@ -3,7 +3,10 @@ import os
 
 from setuptools import setup
 from setuptools.extension import Extension
-from Cython.Distutils import build_ext
+
+def build_ext_proxy(*args, **kwargs):
+    from Cython.Distutils import build_ext
+    return build_ext(*args, **kwargs)
 
 HATTRIE_DIR = 'hat-trie/src'
 HATTRIE_FILE_NAMES = ['ahtable.c', 'hat-trie.c', 'misc.c', 'murmurhash3.c']
@@ -18,7 +21,7 @@ setup(
     author_email='kmike84@gmail.com',
     url='https://github.com/kmike/hat-trie/',
     #packages = ['hat_trie'],
-    cmdclass = {'build_ext': build_ext},
+    cmdclass = {'build_ext': build_ext_proxy},
 
     ext_modules = [
         Extension(
