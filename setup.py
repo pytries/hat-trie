@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 import os
-from distutils.core import setup
-from distutils.extension import Extension
+
+from setuptools import setup
+from setuptools.extension import Extension
 from Cython.Distutils import build_ext
 
 HATTRIE_DIR = 'hat-trie/src'
@@ -9,10 +10,10 @@ HATTRIE_FILE_NAMES = ['ahtable.c', 'hat-trie.c', 'misc.c', 'murmurhash3.c']
 HATTRIE_FILES = [os.path.join(HATTRIE_DIR, name) for name in HATTRIE_FILE_NAMES]
 
 setup(
-    name="hat-trie",
-    version="0.1",
-    description="HAT-Trie for Python",
-    long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
+    name='hat-trie',
+    version='0.1',
+    description='HAT-Trie for Python',
+    long_description = open('README.rst').read() + '\n\n' + open('CHANGES.rst').read(),
     author='Mikhail Korobov',
     author_email='kmike84@gmail.com',
     url='https://github.com/kmike/hat-trie/',
@@ -21,9 +22,8 @@ setup(
 
     ext_modules = [
         Extension(
-            "hat_trie",
+            'hat_trie',
             ['src/hat_trie.pyx', 'src/chat_trie.pxd'] + HATTRIE_FILES,
-            #['src/datrie.c', 'src/cdatrie.c', 'src/stdio_ext.c'] + HATTRIE_FILES,
             include_dirs=['hat-trie/src'],
         )
     ],
@@ -46,4 +46,6 @@ setup(
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Text Processing :: Linguistic',
     ],
+
+    setup_requires=['cython'],
 )
