@@ -12,7 +12,7 @@
  *
  * Briefly, the idea is, as opposed to separate chaining with linked lists, to
  * store keys contiguously in one big array, thereby improving the caching
- * behavior, and reducing space requirments.
+ * behavior, and reducing space requirements.
  *
  */
 
@@ -38,7 +38,7 @@ typedef struct ahtable_t_
     unsigned char c1;
 
     size_t n;        // number of slots
-    size_t m;        // numbur of key/value pairs stored
+    size_t m;        // number of key/value pairs stored
     size_t max_m;    // number of stored keys before we resize
 
     size_t*  slot_sizes;

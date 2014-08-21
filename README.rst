@@ -129,6 +129,7 @@ Authors & Contributors
 * Mikhail Korobov <kmike84@gmail.com>
 * Brandon Forehand <b4hand@users.sf.net>
 * https://github.com/yflau
+* Michael Heilman <https://github.com/mheilman/>
 
 This module wraps `hat-trie`_ C library by Daniel Jones & contributors.
 

@@ -2,6 +2,8 @@
 Hat-Trie
 ========
 
+[![Build Status](https://travis-ci.org/dcjones/hat-trie.svg)](https://travis-ci.org/dcjones/hat-trie)
+
 This a ANSI C99 implementation of the HAT-trie data structure of Askitis and
 Sinha, an extremely efficient (space and time) modern variant of tries.
 
@@ -29,6 +31,17 @@ Installation
     ./configure
     make install
 
-To use the library, include `hat-trie.h` and link using `lhat-trie`.
+To use the library, include `hat-trie.h` and link using `-lhat-trie`.
 
 
+Tests
+-----
+
+Build and run the tests:
+
+    make check
+
+Other Language Bindings
+-----------------------
+ * Ruby - https://github.com/luikore/triez
+ * Python - https://github.com/kmike/hat-trie
