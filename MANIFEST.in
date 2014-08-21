@@ -10,5 +10,5 @@ include hat-trie/configure
 include hat-trie/configure.ac
 
 include src/hat_trie.pyx
-include src/chat_datrie.pxd
+include src/chat_trie.pxd
 
