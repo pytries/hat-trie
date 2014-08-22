@@ -7,13 +7,11 @@ HATTRIE_DIR = 'hat-trie/src'
 HATTRIE_FILE_NAMES = ['ahtable.c', 'hat-trie.c', 'misc.c', 'murmurhash3.c']
 HATTRIE_FILES = [os.path.join(HATTRIE_DIR, name) for name in HATTRIE_FILE_NAMES]
 
-file_readme = open('README.rst')
-readme = file_readme.read()
-file_readme.close()
+with open('README.rst') as file_readme:
+    readme = file_readme.read()
 
-file_changes = open('CHANGES.rst')
-changes = file_changes.read()
-file_changes.close()
+with open('CHANGES.rst') as file_changes:
+    changes = file_changes.read()
 
 setup(
     name="hat-trie",
