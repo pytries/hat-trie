@@ -111,7 +111,9 @@ Make sure `tox`_ is installed and run
     # ./update_c.sh
     $ tox
 
-from the source checkout. Tests should pass under python 2.6, 2.7, 3.2 and 3.3.
+from the source checkout. You will need Cython_ to do that.
+
+Tests should pass under python 2.6, 2.7, 3.2, 3.3 and 3.4.
 
 ::
 
@@ -119,7 +121,7 @@ from the source checkout. Tests should pass under python 2.6, 2.7, 3.2 and 3.3.
 
 runs benchmarks.
 
-.. _cython: http://cython.org
+.. _Cython: http://cython.org
 .. _tox: http://tox.testrun.org
 
 Authors & Contributors
