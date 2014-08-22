@@ -9,7 +9,7 @@ HATTRIE_FILES = [os.path.join(HATTRIE_DIR, name) for name in HATTRIE_FILE_NAMES]
 
 setup(
     name="hat-trie",
-    version="0.1",
+    version="0.2",
     description="HAT-Trie for Python",
     long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
     author='Mikhail Korobov',
