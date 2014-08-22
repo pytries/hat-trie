@@ -9,6 +9,4 @@ include hat-trie/src/config.h.in
 include hat-trie/configure
 include hat-trie/configure.ac
 
-include src/hat_trie.pyx
-include src/chat_datrie.pxd
-
+recursive-include src *.pyx *.pxd *.c

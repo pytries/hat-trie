@@ -1,8 +1,7 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 import os
 from distutils.core import setup
 from distutils.extension import Extension
-from Cython.Distutils import build_ext
 
 HATTRIE_DIR = 'hat-trie/src'
 HATTRIE_FILE_NAMES = ['ahtable.c', 'hat-trie.c', 'misc.c', 'murmurhash3.c']
@@ -16,14 +15,11 @@ setup(
     author='Mikhail Korobov',
     author_email='kmike84@gmail.com',
     url='https://github.com/kmike/hat-trie/',
-    #packages = ['hat_trie'],
-    cmdclass = {'build_ext': build_ext},
 
     ext_modules = [
         Extension(
             "hat_trie",
-            ['src/hat_trie.pyx', 'src/chat_trie.pxd'] + HATTRIE_FILES,
-            #['src/datrie.c', 'src/cdatrie.c', 'src/stdio_ext.c'] + HATTRIE_FILES,
+            ['src/hat_trie.c', 'src/chat_trie.c'] + HATTRIE_FILES,
             include_dirs=['hat-trie/src'],
         )
     ],

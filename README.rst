@@ -17,8 +17,6 @@ Installation
 
     pip install hat-trie
 
-Note that it currently requires Cython to build.
-
 Usage
 =====
 
@@ -102,6 +100,7 @@ Development happens at github:
 
 Feel free to submit ideas, bugs, pull requests or regular patches.
 
+Please don't commit changes to generated C files; I will rebuild them myself.
 
 Running tests and benchmarks
 ----------------------------
@@ -109,7 +108,7 @@ Running tests and benchmarks
 Make sure `tox`_ is installed and run
 
 ::
-
+    # ./update_c.sh
     $ tox
 
 from the source checkout. Tests should pass under python 2.6, 2.7, 3.2 and 3.3.

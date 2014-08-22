@@ -11,5 +11,6 @@ install:
   - pip install cython
   - python setup.py install
 
-# command to run tests, e.g. python setup.py test
-script: py.test
+script:
+- ./update_c.sh
+- py.test
