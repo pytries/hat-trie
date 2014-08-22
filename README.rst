@@ -32,7 +32,7 @@ it usually uses less memory than Python dict.
 There is also ``hat_trie.IntTrie`` which only supports positive
 integers as values. It can be more efficient when you don't need
 arbitrary objects as values. For example, if you need to store float
-values then storing them in an array (either numpy or stdlib's ``array.array`)
+values then storing them in an array (either numpy or stdlib's ``array.array``)
 and using IntTrie values as indices could be more memory efficient
 than storing Python float objects directly in ``hat_trie.Trie``.
 
@@ -108,7 +108,8 @@ Running tests and benchmarks
 Make sure `tox`_ is installed and run
 
 ::
-    # ./update_c.sh
+
+    $ ./update_c.sh
     $ tox
 
 from the source checkout. You will need Cython_ to do that.
