@@ -21,6 +21,7 @@ setup(
             "hat_trie",
             ['src/hat_trie.c', 'src/chat_trie.c'] + HATTRIE_FILES,
             include_dirs=['hat-trie/src'],
+            extra_compile_args=["-Wno-error=declaration-after-statement"],
         )
     ],
 
