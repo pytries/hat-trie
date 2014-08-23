@@ -7,11 +7,17 @@ HATTRIE_DIR = 'hat-trie/src'
 HATTRIE_FILE_NAMES = ['ahtable.c', 'hat-trie.c', 'misc.c', 'murmurhash3.c']
 HATTRIE_FILES = [os.path.join(HATTRIE_DIR, name) for name in HATTRIE_FILE_NAMES]
 
+with open('README.rst') as file_readme:
+    readme = file_readme.read()
+
+with open('CHANGES.rst') as file_changes:
+    changes = file_changes.read()
+
 setup(
     name="hat-trie",
     version="0.2",
     description="HAT-Trie for Python",
-    long_description = open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
+    long_description = readme + "\n\n" + changes,
     author='Mikhail Korobov',
     author_email='kmike84@gmail.com',
     url='https://github.com/kmike/hat-trie/',
