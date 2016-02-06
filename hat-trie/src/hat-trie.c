@@ -56,6 +56,37 @@ struct hattrie_t_
     size_t m;      // number of stored keys
 };
 
+
+
+size_t hattrie_size(const hattrie_t* T)
+{
+    return T->m;
+}
+
+
+static size_t node_sizeof(node_ptr node)
+{
+    if (*node.flag & NODE_TYPE_TRIE) {
+        size_t nbytes = sizeof(trie_node_t);
+        size_t i;
+        nbytes += node_sizeof(node.t->xs[0]);
+        for (i = 1; i < NODE_CHILDS; ++i) {
+            if (node.t->xs[i].t != node.t->xs[i-1].t) nbytes += node_sizeof(node.t->xs[i]);
+        }
+        return nbytes;
+    }
+    else {
+        return ahtable_sizeof(node.b);
+    }
+}
+
+
+size_t hattrie_sizeof(const hattrie_t* T)
+{
+    return sizeof(hattrie_t) + node_sizeof(T->root);
+}
+
+
 /* Create a new trie node with all pointers pointing to the given child (which
  * can be NULL). */
 static trie_node_t* alloc_trie_node(hattrie_t* T, node_ptr child)
@@ -179,6 +210,19 @@ void hattrie_free(hattrie_t* T)
     hattrie_free_node(T->root);
     free(T);
 }
+
+
+void hattrie_clear(hattrie_t* T)
+{
+    hattrie_free_node(T->root);
+    node_ptr node;
+    node.b = ahtable_create();
+    node.b->flag = NODE_TYPE_HYBRID_BUCKET;
+    node.b->c0 = 0x00;
+    node.b->c1 = 0xff;
+    T->root.t = alloc_trie_node(T, node);
+}
+
 
 /* Perform one split operation on the given node with the given parent.
  */
@@ -404,6 +448,7 @@ value_t* hattrie_tryget(hattrie_t* T, const char* key, size_t len)
 int hattrie_del(hattrie_t* T, const char* key, size_t len)
 {
     node_ptr parent = T->root;
+    HT_UNUSED(parent);
     assert(*parent.flag & NODE_TYPE_TRIE);
 
     /* find node for deletion */
@@ -641,7 +686,7 @@ const char* hattrie_iter_key(hattrie_iter_t* i, size_t* len)
     memcpy(i->key + i->level, subkey, sublen);
     i->key[i->level + sublen] = '\0';
 
-    *len = i->level + sublen;
+    if (len) *len = i->level + sublen;
     return i->key;
 }
 
@@ -653,4 +698,14 @@ value_t* hattrie_iter_val(hattrie_iter_t* i)
     if (hattrie_iter_finished(i)) return NULL;
 
     return ahtable_iter_val(i->i);
+}
+
+
+
+bool hattrie_iter_equal(const hattrie_iter_t* a,
+                        const hattrie_iter_t* b)
+{
+    return a->T      == b->T &&
+           a->sorted == b->sorted &&
+           a->i      == b->i;
 }
