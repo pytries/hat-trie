@@ -10,6 +10,7 @@ cdef extern from "../hat-trie/src/hat-trie.h":
     void       hattrie_free   (hattrie_t*)       # Free all memory used by a trie.
     hattrie_t* hattrie_dup    (hattrie_t*)       # Duplicate an existing trie.
     void       hattrie_clear  (hattrie_t*)       # Remove all entries.
+    size_t     hattrie_size   (const hattrie_t*) # Number of stored keys.
 
 
     # Find the given key in the trie, inserting it if it does not exist, and

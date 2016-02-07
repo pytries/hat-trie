@@ -29,7 +29,7 @@ cdef class BaseTrie:
         return self._contains(key)
 
     def __len__(self):
-        return (<hattrie_t_*> self._trie).m
+        return hattrie_size(self._trie)
 
     def get(self, bytes key, value=-1):
         try:
