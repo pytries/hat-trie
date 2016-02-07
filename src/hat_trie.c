@@ -236,6 +236,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 
 #define __PYX_HAVE__hat_trie
 #define __PYX_HAVE_API__hat_trie
+#include "math.h"
 #include "../hat-trie/src/hat-trie.h"
 #include "string.h"
 #include "stdio.h"
@@ -457,10 +458,12 @@ static const char *__pyx_f[] = {
 /*--- Type declarations ---*/
 struct __pyx_obj_8hat_trie_BaseTrie;
 struct __pyx_obj_8hat_trie_IntTrie;
+struct __pyx_obj_8hat_trie_FloatTrie;
 struct __pyx_obj_8hat_trie_Trie;
 struct __pyx_obj_8hat_trie___pyx_scope_struct__iterkeys;
 struct __pyx_obj_8hat_trie___pyx_scope_struct_1_iterkeys;
 struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys;
+struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys;
 struct __pyx_t_9chat_trie_hattrie_t_;
 
 /* "chat_trie.pxd":36
@@ -475,7 +478,7 @@ struct __pyx_t_9chat_trie_hattrie_t_ {
   size_t m;
 };
 
-/* "hat_trie.pyx":7
+/* "hat_trie.pyx":8
  * cimport cpython
  * 
  * cdef class BaseTrie:             # <<<<<<<<<<<<<<
@@ -489,7 +492,7 @@ struct __pyx_obj_8hat_trie_BaseTrie {
 };
 
 
-/* "hat_trie.pyx":86
+/* "hat_trie.pyx":87
  * 
  * 
  * cdef class IntTrie(BaseTrie):             # <<<<<<<<<<<<<<
@@ -501,7 +504,19 @@ struct __pyx_obj_8hat_trie_IntTrie {
 };
 
 
-/* "hat_trie.pyx":138
+/* "hat_trie.pyx":139
+ * 
+ * 
+ * cdef class FloatTrie(BaseTrie):             # <<<<<<<<<<<<<<
+ *     """
+ *     HAT-Trie with unicode support that stores float as value.
+ */
+struct __pyx_obj_8hat_trie_FloatTrie {
+  struct __pyx_obj_8hat_trie_BaseTrie __pyx_base;
+};
+
+
+/* "hat_trie.pyx":185
  * 
  * 
  * cdef class Trie(BaseTrie):             # <<<<<<<<<<<<<<
@@ -513,7 +528,7 @@ struct __pyx_obj_8hat_trie_Trie {
 };
 
 
-/* "hat_trie.pyx":46
+/* "hat_trie.pyx":47
  *         return list(self.iterkeys())
  * 
  *     def iterkeys(self):             # <<<<<<<<<<<<<<
@@ -531,7 +546,7 @@ struct __pyx_obj_8hat_trie___pyx_scope_struct__iterkeys {
 };
 
 
-/* "hat_trie.pyx":133
+/* "hat_trie.pyx":134
  *         return self._setdefault(bkey, value)
  * 
  *     def iterkeys(self):             # <<<<<<<<<<<<<<
@@ -548,14 +563,31 @@ struct __pyx_obj_8hat_trie___pyx_scope_struct_1_iterkeys {
 };
 
 
-/* "hat_trie.pyx":183
- *         return self._setdefault(bkey, self._tovalue(value))
+/* "hat_trie.pyx":172
+ *         return self._fromvalue(self._setdefault(bkey, self._tovalue(value)))
  * 
  *     def iterkeys(self):             # <<<<<<<<<<<<<<
  *         for key in BaseTrie.iterkeys(self):
  *             yield key.decode('utf8')
  */
 struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys {
+  PyObject_HEAD
+  PyObject *__pyx_v_key;
+  struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self;
+  PyObject *__pyx_t_0;
+  Py_ssize_t __pyx_t_1;
+  PyObject *(*__pyx_t_2)(PyObject *);
+};
+
+
+/* "hat_trie.pyx":230
+ *         return self._setdefault(bkey, self._tovalue(value))
+ * 
+ *     def iterkeys(self):             # <<<<<<<<<<<<<<
+ *         for key in BaseTrie.iterkeys(self):
+ *             yield key.decode('utf8')
+ */
+struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys {
   PyObject_HEAD
   PyObject *__pyx_v_key;
   struct __pyx_obj_8hat_trie_Trie *__pyx_v_self;
@@ -566,7 +598,7 @@ struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys {
 
 
 
-/* "hat_trie.pyx":7
+/* "hat_trie.pyx":8
  * cimport cpython
  * 
  * cdef class BaseTrie:             # <<<<<<<<<<<<<<
@@ -583,7 +615,7 @@ struct __pyx_vtabstruct_8hat_trie_BaseTrie {
 static struct __pyx_vtabstruct_8hat_trie_BaseTrie *__pyx_vtabptr_8hat_trie_BaseTrie;
 
 
-/* "hat_trie.pyx":86
+/* "hat_trie.pyx":87
  * 
  * 
  * cdef class IntTrie(BaseTrie):             # <<<<<<<<<<<<<<
@@ -597,7 +629,23 @@ struct __pyx_vtabstruct_8hat_trie_IntTrie {
 static struct __pyx_vtabstruct_8hat_trie_IntTrie *__pyx_vtabptr_8hat_trie_IntTrie;
 
 
-/* "hat_trie.pyx":138
+/* "hat_trie.pyx":139
+ * 
+ * 
+ * cdef class FloatTrie(BaseTrie):             # <<<<<<<<<<<<<<
+ *     """
+ *     HAT-Trie with unicode support that stores float as value.
+ */
+
+struct __pyx_vtabstruct_8hat_trie_FloatTrie {
+  struct __pyx_vtabstruct_8hat_trie_BaseTrie __pyx_base;
+  float (*_fromvalue)(struct __pyx_obj_8hat_trie_FloatTrie *, value_t);
+  value_t (*_tovalue)(struct __pyx_obj_8hat_trie_FloatTrie *, float);
+};
+static struct __pyx_vtabstruct_8hat_trie_FloatTrie *__pyx_vtabptr_8hat_trie_FloatTrie;
+
+
+/* "hat_trie.pyx":185
  * 
  * 
  * cdef class Trie(BaseTrie):             # <<<<<<<<<<<<<<
@@ -941,6 +989,18 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
 
 static int __Pyx_SetVtable(PyObject *dict, void *vtable);
 
+static double __Pyx__PyObject_AsDouble(PyObject* obj);
+#if CYTHON_COMPILING_IN_PYPY
+#define __Pyx_PyObject_AsDouble(obj)\
+(likely(PyFloat_CheckExact(obj)) ? PyFloat_AS_DOUBLE(obj) :\
+ likely(PyInt_CheckExact(obj)) ?\
+ PyFloat_AsDouble(obj) : __Pyx__PyObject_AsDouble(obj))
+#else
+#define __Pyx_PyObject_AsDouble(obj)\
+((likely(PyFloat_CheckExact(obj))) ?\
+ PyFloat_AS_DOUBLE(obj) : __Pyx__PyObject_AsDouble(obj))
+#endif
+
 typedef struct {
     int code_line;
     PyCodeObject* code_object;
@@ -1027,9 +1087,13 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__getitem(struct __pyx_obj_8hat_trie_B
 static void __pyx_f_8hat_trie_8BaseTrie__setitem(struct __pyx_obj_8hat_trie_BaseTrie *__pyx_v_self, char *__pyx_v_key, value_t __pyx_v_value); /* proto*/
 static value_t __pyx_f_8hat_trie_8BaseTrie__setdefault(struct __pyx_obj_8hat_trie_BaseTrie *__pyx_v_self, char *__pyx_v_key, value_t __pyx_v_value); /* proto*/
 static int __pyx_f_8hat_trie_8BaseTrie__contains(struct __pyx_obj_8hat_trie_BaseTrie *__pyx_v_self, char *__pyx_v_key); /* proto*/
+static float __pyx_f_8hat_trie_9FloatTrie__fromvalue(CYTHON_UNUSED struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, value_t __pyx_v_value); /* proto*/
+static value_t __pyx_f_8hat_trie_9FloatTrie__tovalue(CYTHON_UNUSED struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, float __pyx_v_value); /* proto*/
 static void __pyx_f_8hat_trie_4Trie__setitem(struct __pyx_obj_8hat_trie_Trie *__pyx_v_self, char *__pyx_v_key, value_t __pyx_v_value); /* proto*/
 static PyObject *__pyx_f_8hat_trie_4Trie__fromvalue(CYTHON_UNUSED struct __pyx_obj_8hat_trie_Trie *__pyx_v_self, value_t __pyx_v_value); /* proto*/
 static value_t __pyx_f_8hat_trie_4Trie__tovalue(CYTHON_UNUSED struct __pyx_obj_8hat_trie_Trie *__pyx_v_self, PyObject *__pyx_v_obj); /* proto*/
+
+/* Module declarations from 'libc.math' */
 
 /* Module declarations from 'chat_trie' */
 
@@ -1119,16 +1183,19 @@ static PyTypeObject *__pyx_ptype_7cpython_7complex_complex = 0;
 /* Module declarations from 'hat_trie' */
 static PyTypeObject *__pyx_ptype_8hat_trie_BaseTrie = 0;
 static PyTypeObject *__pyx_ptype_8hat_trie_IntTrie = 0;
+static PyTypeObject *__pyx_ptype_8hat_trie_FloatTrie = 0;
 static PyTypeObject *__pyx_ptype_8hat_trie_Trie = 0;
 static PyTypeObject *__pyx_ptype_8hat_trie___pyx_scope_struct__iterkeys = 0;
 static PyTypeObject *__pyx_ptype_8hat_trie___pyx_scope_struct_1_iterkeys = 0;
 static PyTypeObject *__pyx_ptype_8hat_trie___pyx_scope_struct_2_iterkeys = 0;
+static PyTypeObject *__pyx_ptype_8hat_trie___pyx_scope_struct_3_iterkeys = 0;
 #define __Pyx_MODULE_NAME "hat_trie"
 int __pyx_module_is_main_hat_trie = 0;
 
 /* Implementation of 'hat_trie' */
 static PyObject *__pyx_builtin_KeyError;
 static char __pyx_k_key[] = "key";
+static char __pyx_k_nan[] = "nan";
 static char __pyx_k_args[] = "args";
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_send[] = "send";
@@ -1144,7 +1211,9 @@ static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static char __pyx_k_Trie_iterkeys[] = "Trie.iterkeys";
 static char __pyx_k_IntTrie_iterkeys[] = "IntTrie.iterkeys";
 static char __pyx_k_BaseTrie_iterkeys[] = "BaseTrie.iterkeys";
+static char __pyx_k_FloatTrie_iterkeys[] = "FloatTrie.iterkeys";
 static PyObject *__pyx_n_s_BaseTrie_iterkeys;
+static PyObject *__pyx_n_s_FloatTrie_iterkeys;
 static PyObject *__pyx_n_s_IntTrie_iterkeys;
 static PyObject *__pyx_n_s_KeyError;
 static PyObject *__pyx_n_s_Trie_iterkeys;
@@ -1154,6 +1223,7 @@ static PyObject *__pyx_n_s_decode;
 static PyObject *__pyx_n_s_iterkeys;
 static PyObject *__pyx_n_s_key;
 static PyObject *__pyx_n_s_main;
+static PyObject *__pyx_n_s_nan;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_send;
 static PyObject *__pyx_n_s_test;
@@ -1176,6 +1246,12 @@ static int __pyx_pf_8hat_trie_7IntTrie_4__setitem__(struct __pyx_obj_8hat_trie_I
 static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_IntTrie *__pyx_v_self, PyObject *__pyx_v_key, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_8hat_trie_7IntTrie_8setdefault(struct __pyx_obj_8hat_trie_IntTrie *__pyx_v_self, PyObject *__pyx_v_key, int __pyx_v_value); /* proto */
 static PyObject *__pyx_pf_8hat_trie_7IntTrie_10iterkeys(struct __pyx_obj_8hat_trie_IntTrie *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_8hat_trie_9FloatTrie___getitem__(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key); /* proto */
+static int __pyx_pf_8hat_trie_9FloatTrie_2__contains__(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key); /* proto */
+static int __pyx_pf_8hat_trie_9FloatTrie_4__setitem__(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key, float __pyx_v_value); /* proto */
+static PyObject *__pyx_pf_8hat_trie_9FloatTrie_6get(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_8hat_trie_9FloatTrie_8setdefault(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key, float __pyx_v_value); /* proto */
+static PyObject *__pyx_pf_8hat_trie_9FloatTrie_10iterkeys(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self); /* proto */
 static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_8hat_trie_4Trie_2__getitem__(struct __pyx_obj_8hat_trie_Trie *__pyx_v_self, PyObject *__pyx_v_key); /* proto */
 static int __pyx_pf_8hat_trie_4Trie_4__contains__(struct __pyx_obj_8hat_trie_Trie *__pyx_v_self, PyObject *__pyx_v_key); /* proto */
@@ -1185,15 +1261,19 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_10setdefault(struct __pyx_obj_8hat_tri
 static PyObject *__pyx_pf_8hat_trie_4Trie_12iterkeys(struct __pyx_obj_8hat_trie_Trie *__pyx_v_self); /* proto */
 static PyObject *__pyx_tp_new_8hat_trie_BaseTrie(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_8hat_trie_IntTrie(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_8hat_trie_FloatTrie(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_8hat_trie_Trie(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_8hat_trie___pyx_scope_struct__iterkeys(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_8hat_trie___pyx_scope_struct_1_iterkeys(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_8hat_trie___pyx_scope_struct_2_iterkeys(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_8hat_trie___pyx_scope_struct_3_iterkeys(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_neg_1;
+static PyObject *__pyx_k__2;
 static PyObject *__pyx_tuple_;
-static PyObject *__pyx_tuple__2;
+static PyObject *__pyx_tuple__3;
+static PyObject *__pyx_tuple__4;
 
-/* "hat_trie.pyx":14
+/* "hat_trie.pyx":15
  *     cdef hattrie_t* _trie
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -1225,9 +1305,9 @@ static int __pyx_pf_8hat_trie_8BaseTrie___cinit__(struct __pyx_obj_8hat_trie_Bas
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
-  __Pyx_TraceCall("__cinit__", __pyx_f[0], 14, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__cinit__", __pyx_f[0], 15, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":15
+  /* "hat_trie.pyx":16
  * 
  *     def __cinit__(self):
  *         self._trie = hattrie_create()             # <<<<<<<<<<<<<<
@@ -1236,7 +1316,7 @@ static int __pyx_pf_8hat_trie_8BaseTrie___cinit__(struct __pyx_obj_8hat_trie_Bas
  */
   __pyx_v_self->_trie = hattrie_create();
 
-  /* "hat_trie.pyx":14
+  /* "hat_trie.pyx":15
  *     cdef hattrie_t* _trie
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -1256,7 +1336,7 @@ static int __pyx_pf_8hat_trie_8BaseTrie___cinit__(struct __pyx_obj_8hat_trie_Bas
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":17
+/* "hat_trie.pyx":18
  *         self._trie = hattrie_create()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1283,9 +1363,9 @@ static void __pyx_pf_8hat_trie_8BaseTrie_2__dealloc__(struct __pyx_obj_8hat_trie
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
-  __Pyx_TraceCall("__dealloc__", __pyx_f[0], 17, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__dealloc__", __pyx_f[0], 18, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":18
+  /* "hat_trie.pyx":19
  * 
  *     def __dealloc__(self):
  *         if self._trie:             # <<<<<<<<<<<<<<
@@ -1295,7 +1375,7 @@ static void __pyx_pf_8hat_trie_8BaseTrie_2__dealloc__(struct __pyx_obj_8hat_trie
   __pyx_t_1 = (__pyx_v_self->_trie != 0);
   if (__pyx_t_1) {
 
-    /* "hat_trie.pyx":19
+    /* "hat_trie.pyx":20
  *     def __dealloc__(self):
  *         if self._trie:
  *             hattrie_free(self._trie)             # <<<<<<<<<<<<<<
@@ -1304,7 +1384,7 @@ static void __pyx_pf_8hat_trie_8BaseTrie_2__dealloc__(struct __pyx_obj_8hat_trie
  */
     hattrie_free(__pyx_v_self->_trie);
 
-    /* "hat_trie.pyx":18
+    /* "hat_trie.pyx":19
  * 
  *     def __dealloc__(self):
  *         if self._trie:             # <<<<<<<<<<<<<<
@@ -1313,7 +1393,7 @@ static void __pyx_pf_8hat_trie_8BaseTrie_2__dealloc__(struct __pyx_obj_8hat_trie
  */
   }
 
-  /* "hat_trie.pyx":17
+  /* "hat_trie.pyx":18
  *         self._trie = hattrie_create()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1330,7 +1410,7 @@ static void __pyx_pf_8hat_trie_8BaseTrie_2__dealloc__(struct __pyx_obj_8hat_trie
   __Pyx_RefNannyFinishContext();
 }
 
-/* "hat_trie.pyx":22
+/* "hat_trie.pyx":23
  * 
  * 
  *     def __getitem__(self, bytes key):             # <<<<<<<<<<<<<<
@@ -1347,7 +1427,7 @@ static PyObject *__pyx_pw_8hat_trie_8BaseTrie_5__getitem__(PyObject *__pyx_v_sel
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_8BaseTrie_4__getitem__(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), ((PyObject*)__pyx_v_key));
 
   /* function exit code */
@@ -1370,9 +1450,9 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_4__getitem__(struct __pyx_obj_8hat
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
-  __Pyx_TraceCall("__getitem__", __pyx_f[0], 22, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__getitem__", __pyx_f[0], 23, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":23
+  /* "hat_trie.pyx":24
  * 
  *     def __getitem__(self, bytes key):
  *         return self._getitem(key)             # <<<<<<<<<<<<<<
@@ -1380,15 +1460,15 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_4__getitem__(struct __pyx_obj_8hat
  *     def __setitem__(self, bytes key, int value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = ((struct __pyx_vtabstruct_8hat_trie_BaseTrie *)__pyx_v_self->__pyx_vtab)->_getitem(__pyx_v_self, __pyx_t_1); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_3 = __Pyx_PyInt_From_value_t(__pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = ((struct __pyx_vtabstruct_8hat_trie_BaseTrie *)__pyx_v_self->__pyx_vtab)->_getitem(__pyx_v_self, __pyx_t_1); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyInt_From_value_t(__pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":22
+  /* "hat_trie.pyx":23
  * 
  * 
  *     def __getitem__(self, bytes key):             # <<<<<<<<<<<<<<
@@ -1408,7 +1488,7 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_4__getitem__(struct __pyx_obj_8hat
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":25
+/* "hat_trie.pyx":26
  *         return self._getitem(key)
  * 
  *     def __setitem__(self, bytes key, int value):             # <<<<<<<<<<<<<<
@@ -1427,7 +1507,7 @@ static int __pyx_pw_8hat_trie_8BaseTrie_7__setitem__(PyObject *__pyx_v_self, PyO
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__ (wrapper)", 0);
   assert(__pyx_arg_value); {
-    __pyx_v_value = __Pyx_PyInt_As_int(__pyx_arg_value); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_value = __Pyx_PyInt_As_int(__pyx_arg_value); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1435,7 +1515,7 @@ static int __pyx_pw_8hat_trie_8BaseTrie_7__setitem__(PyObject *__pyx_v_self, PyO
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_8BaseTrie_6__setitem__(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), ((PyObject*)__pyx_v_key), ((int)__pyx_v_value));
 
   /* function exit code */
@@ -1456,19 +1536,19 @@ static int __pyx_pf_8hat_trie_8BaseTrie_6__setitem__(struct __pyx_obj_8hat_trie_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__setitem__", 0);
-  __Pyx_TraceCall("__setitem__", __pyx_f[0], 25, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__setitem__", __pyx_f[0], 26, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":26
+  /* "hat_trie.pyx":27
  * 
  *     def __setitem__(self, bytes key, int value):
  *         self._setitem(key, value)             # <<<<<<<<<<<<<<
  * 
  *     def __contains__(self, bytes key):
  */
-  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   ((struct __pyx_vtabstruct_8hat_trie_BaseTrie *)__pyx_v_self->__pyx_vtab)->_setitem(__pyx_v_self, __pyx_t_1, __pyx_v_value);
 
-  /* "hat_trie.pyx":25
+  /* "hat_trie.pyx":26
  *         return self._getitem(key)
  * 
  *     def __setitem__(self, bytes key, int value):             # <<<<<<<<<<<<<<
@@ -1488,7 +1568,7 @@ static int __pyx_pf_8hat_trie_8BaseTrie_6__setitem__(struct __pyx_obj_8hat_trie_
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":28
+/* "hat_trie.pyx":29
  *         self._setitem(key, value)
  * 
  *     def __contains__(self, bytes key):             # <<<<<<<<<<<<<<
@@ -1505,7 +1585,7 @@ static int __pyx_pw_8hat_trie_8BaseTrie_9__contains__(PyObject *__pyx_v_self, Py
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__contains__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_8BaseTrie_8__contains__(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), ((PyObject*)__pyx_v_key));
 
   /* function exit code */
@@ -1526,20 +1606,20 @@ static int __pyx_pf_8hat_trie_8BaseTrie_8__contains__(struct __pyx_obj_8hat_trie
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__contains__", 0);
-  __Pyx_TraceCall("__contains__", __pyx_f[0], 28, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__contains__", __pyx_f[0], 29, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":29
+  /* "hat_trie.pyx":30
  * 
  *     def __contains__(self, bytes key):
  *         return self._contains(key)             # <<<<<<<<<<<<<<
  * 
  *     def __len__(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = ((struct __pyx_vtabstruct_8hat_trie_BaseTrie *)__pyx_v_self->__pyx_vtab)->_contains(__pyx_v_self, __pyx_t_1);
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":28
+  /* "hat_trie.pyx":29
  *         self._setitem(key, value)
  * 
  *     def __contains__(self, bytes key):             # <<<<<<<<<<<<<<
@@ -1557,7 +1637,7 @@ static int __pyx_pf_8hat_trie_8BaseTrie_8__contains__(struct __pyx_obj_8hat_trie
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":31
+/* "hat_trie.pyx":32
  *         return self._contains(key)
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -1586,9 +1666,9 @@ static Py_ssize_t __pyx_pf_8hat_trie_8BaseTrie_10__len__(struct __pyx_obj_8hat_t
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__len__", 0);
-  __Pyx_TraceCall("__len__", __pyx_f[0], 31, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__len__", __pyx_f[0], 32, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":32
+  /* "hat_trie.pyx":33
  * 
  *     def __len__(self):
  *         return hattrie_size(self._trie)             # <<<<<<<<<<<<<<
@@ -1598,7 +1678,7 @@ static Py_ssize_t __pyx_pf_8hat_trie_8BaseTrie_10__len__(struct __pyx_obj_8hat_t
   __pyx_r = hattrie_size(__pyx_v_self->_trie);
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":31
+  /* "hat_trie.pyx":32
  *         return self._contains(key)
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -1616,7 +1696,7 @@ static Py_ssize_t __pyx_pf_8hat_trie_8BaseTrie_10__len__(struct __pyx_obj_8hat_t
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":34
+/* "hat_trie.pyx":35
  *         return hattrie_size(self._trie)
  * 
  *     def get(self, bytes key, value=-1):             # <<<<<<<<<<<<<<
@@ -1660,7 +1740,7 @@ static PyObject *__pyx_pw_8hat_trie_8BaseTrie_13get(PyObject *__pyx_v_self, PyOb
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1675,13 +1755,13 @@ static PyObject *__pyx_pw_8hat_trie_8BaseTrie_13get(PyObject *__pyx_v_self, PyOb
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("get", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("hat_trie.BaseTrie.get", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_8BaseTrie_12get(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_v_key, __pyx_v_value);
 
   /* function exit code */
@@ -1710,9 +1790,9 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_12get(struct __pyx_obj_8hat_trie_B
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get", 0);
-  __Pyx_TraceCall("get", __pyx_f[0], 34, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("get", __pyx_f[0], 35, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":35
+  /* "hat_trie.pyx":36
  * 
  *     def get(self, bytes key, value=-1):
  *         try:             # <<<<<<<<<<<<<<
@@ -1726,7 +1806,7 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_12get(struct __pyx_obj_8hat_trie_B
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "hat_trie.pyx":36
+      /* "hat_trie.pyx":37
  *     def get(self, bytes key, value=-1):
  *         try:
  *             return self._getitem(key)             # <<<<<<<<<<<<<<
@@ -1734,15 +1814,15 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_12get(struct __pyx_obj_8hat_trie_B
  *             return value
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_4 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_4) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      __pyx_t_5 = ((struct __pyx_vtabstruct_8hat_trie_BaseTrie *)__pyx_v_self->__pyx_vtab)->_getitem(__pyx_v_self, __pyx_t_4); if (unlikely(__pyx_t_5 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      __pyx_t_6 = __Pyx_PyInt_From_value_t(__pyx_t_5); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_4 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_4) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_5 = ((struct __pyx_vtabstruct_8hat_trie_BaseTrie *)__pyx_v_self->__pyx_vtab)->_getitem(__pyx_v_self, __pyx_t_4); if (unlikely(__pyx_t_5 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_6 = __Pyx_PyInt_From_value_t(__pyx_t_5); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       __Pyx_GOTREF(__pyx_t_6);
       __pyx_r = __pyx_t_6;
       __pyx_t_6 = 0;
       goto __pyx_L7_try_return;
 
-      /* "hat_trie.pyx":35
+      /* "hat_trie.pyx":36
  * 
  *     def get(self, bytes key, value=-1):
  *         try:             # <<<<<<<<<<<<<<
@@ -1753,7 +1833,7 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_12get(struct __pyx_obj_8hat_trie_B
     __pyx_L3_error:;
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "hat_trie.pyx":37
+    /* "hat_trie.pyx":38
  *         try:
  *             return self._getitem(key)
  *         except KeyError:             # <<<<<<<<<<<<<<
@@ -1763,12 +1843,12 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_12get(struct __pyx_obj_8hat_trie_B
     __pyx_t_7 = PyErr_ExceptionMatches(__pyx_builtin_KeyError);
     if (__pyx_t_7) {
       __Pyx_AddTraceback("hat_trie.BaseTrie.get", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_6, &__pyx_t_8, &__pyx_t_9) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
+      if (__Pyx_GetException(&__pyx_t_6, &__pyx_t_8, &__pyx_t_9) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GOTREF(__pyx_t_9);
 
-      /* "hat_trie.pyx":38
+      /* "hat_trie.pyx":39
  *             return self._getitem(key)
  *         except KeyError:
  *             return value             # <<<<<<<<<<<<<<
@@ -1786,7 +1866,7 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_12get(struct __pyx_obj_8hat_trie_B
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "hat_trie.pyx":35
+    /* "hat_trie.pyx":36
  * 
  *     def get(self, bytes key, value=-1):
  *         try:             # <<<<<<<<<<<<<<
@@ -1812,7 +1892,7 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_12get(struct __pyx_obj_8hat_trie_B
     goto __pyx_L0;
   }
 
-  /* "hat_trie.pyx":34
+  /* "hat_trie.pyx":35
  *         return hattrie_size(self._trie)
  * 
  *     def get(self, bytes key, value=-1):             # <<<<<<<<<<<<<<
@@ -1834,7 +1914,7 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_12get(struct __pyx_obj_8hat_trie_B
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":40
+/* "hat_trie.pyx":41
  *             return value
  * 
  *     def setdefault(self, bytes key, int value):             # <<<<<<<<<<<<<<
@@ -1873,11 +1953,11 @@ static PyObject *__pyx_pw_8hat_trie_8BaseTrie_15setdefault(PyObject *__pyx_v_sel
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setdefault") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setdefault") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1886,17 +1966,17 @@ static PyObject *__pyx_pw_8hat_trie_8BaseTrie_15setdefault(PyObject *__pyx_v_sel
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_key = ((PyObject*)values[0]);
-    __pyx_v_value = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_value = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("hat_trie.BaseTrie.setdefault", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyBytes_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_8BaseTrie_14setdefault(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_v_key, __pyx_v_value);
 
   /* function exit code */
@@ -1918,9 +1998,9 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_14setdefault(struct __pyx_obj_8hat
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setdefault", 0);
-  __Pyx_TraceCall("setdefault", __pyx_f[0], 40, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("setdefault", __pyx_f[0], 41, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":41
+  /* "hat_trie.pyx":42
  * 
  *     def setdefault(self, bytes key, int value):
  *         return self._setdefault(key, value)             # <<<<<<<<<<<<<<
@@ -1928,14 +2008,14 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_14setdefault(struct __pyx_obj_8hat
  *     def keys(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyInt_From_value_t(((struct __pyx_vtabstruct_8hat_trie_BaseTrie *)__pyx_v_self->__pyx_vtab)->_setdefault(__pyx_v_self, __pyx_t_1, __pyx_v_value)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_key); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_From_value_t(((struct __pyx_vtabstruct_8hat_trie_BaseTrie *)__pyx_v_self->__pyx_vtab)->_setdefault(__pyx_v_self, __pyx_t_1, __pyx_v_value)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":40
+  /* "hat_trie.pyx":41
  *             return value
  * 
  *     def setdefault(self, bytes key, int value):             # <<<<<<<<<<<<<<
@@ -1955,7 +2035,7 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_14setdefault(struct __pyx_obj_8hat
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":43
+/* "hat_trie.pyx":44
  *         return self._setdefault(key, value)
  * 
  *     def keys(self):             # <<<<<<<<<<<<<<
@@ -1987,9 +2067,9 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_16keys(struct __pyx_obj_8hat_trie_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("keys", 0);
-  __Pyx_TraceCall("keys", __pyx_f[0], 43, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("keys", __pyx_f[0], 44, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":44
+  /* "hat_trie.pyx":45
  * 
  *     def keys(self):
  *         return list(self.iterkeys())             # <<<<<<<<<<<<<<
@@ -1997,7 +2077,7 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_16keys(struct __pyx_obj_8hat_trie_
  *     def iterkeys(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_iterkeys); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_iterkeys); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2010,21 +2090,21 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_16keys(struct __pyx_obj_8hat_trie_
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PySequence_List(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PySequence_List(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":43
+  /* "hat_trie.pyx":44
  *         return self._setdefault(key, value)
  * 
  *     def keys(self):             # <<<<<<<<<<<<<<
@@ -2047,7 +2127,7 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_16keys(struct __pyx_obj_8hat_trie_
 }
 static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "hat_trie.pyx":46
+/* "hat_trie.pyx":47
  *         return list(self.iterkeys())
  * 
  *     def iterkeys(self):             # <<<<<<<<<<<<<<
@@ -2083,12 +2163,12 @@ static PyObject *__pyx_pf_8hat_trie_8BaseTrie_18iterkeys(struct __pyx_obj_8hat_t
     return NULL;
   }
   __Pyx_GOTREF(__pyx_cur_scope);
-  __Pyx_TraceCall("iterkeys", __pyx_f[0], 46, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("iterkeys", __pyx_f[0], 47, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
   __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_8hat_trie_8BaseTrie_20generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_iterkeys, __pyx_n_s_BaseTrie_iterkeys); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_8hat_trie_8BaseTrie_20generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_iterkeys, __pyx_n_s_BaseTrie_iterkeys); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -2133,9 +2213,9 @@ static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject 
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "hat_trie.pyx":48
+  /* "hat_trie.pyx":49
  *     def iterkeys(self):
  *         cdef:
  *             hattrie_iter_t* it = hattrie_iter_begin(self._trie, 0)             # <<<<<<<<<<<<<<
@@ -2144,7 +2224,7 @@ static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject 
  */
   __pyx_cur_scope->__pyx_v_it = hattrie_iter_begin(__pyx_cur_scope->__pyx_v_self->_trie, 0);
 
-  /* "hat_trie.pyx":54
+  /* "hat_trie.pyx":55
  *             bytes py_str
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -2153,7 +2233,7 @@ static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject 
  */
   /*try:*/ {
 
-    /* "hat_trie.pyx":55
+    /* "hat_trie.pyx":56
  * 
  *         try:
  *             while not hattrie_iter_finished(it):             # <<<<<<<<<<<<<<
@@ -2164,7 +2244,7 @@ static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject 
       __pyx_t_1 = ((!(hattrie_iter_finished(__pyx_cur_scope->__pyx_v_it) != 0)) != 0);
       if (!__pyx_t_1) break;
 
-      /* "hat_trie.pyx":56
+      /* "hat_trie.pyx":57
  *         try:
  *             while not hattrie_iter_finished(it):
  *                 c_key = hattrie_iter_key(it, &length)             # <<<<<<<<<<<<<<
@@ -2173,21 +2253,21 @@ static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject 
  */
       __pyx_cur_scope->__pyx_v_c_key = hattrie_iter_key(__pyx_cur_scope->__pyx_v_it, (&__pyx_cur_scope->__pyx_v_length));
 
-      /* "hat_trie.pyx":57
+      /* "hat_trie.pyx":58
  *             while not hattrie_iter_finished(it):
  *                 c_key = hattrie_iter_key(it, &length)
  *                 py_str = c_key[:length]             # <<<<<<<<<<<<<<
  *                 yield py_str
  *                 hattrie_iter_next(it)
  */
-      __pyx_t_2 = __Pyx_PyBytes_FromStringAndSize(__pyx_cur_scope->__pyx_v_c_key + 0, __pyx_cur_scope->__pyx_v_length - 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+      __pyx_t_2 = __Pyx_PyBytes_FromStringAndSize(__pyx_cur_scope->__pyx_v_c_key + 0, __pyx_cur_scope->__pyx_v_length - 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_py_str);
       __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_py_str, ((PyObject*)__pyx_t_2));
       __Pyx_GIVEREF(__pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "hat_trie.pyx":58
+      /* "hat_trie.pyx":59
  *                 c_key = hattrie_iter_key(it, &length)
  *                 py_str = c_key[:length]
  *                 yield py_str             # <<<<<<<<<<<<<<
@@ -2202,9 +2282,9 @@ static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject 
       __pyx_generator->resume_label = 1;
       return __pyx_r;
       __pyx_L9_resume_from_yield:;
-      if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+      if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
 
-      /* "hat_trie.pyx":59
+      /* "hat_trie.pyx":60
  *                 py_str = c_key[:length]
  *                 yield py_str
  *                 hattrie_iter_next(it)             # <<<<<<<<<<<<<<
@@ -2215,7 +2295,7 @@ static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject 
     }
   }
 
-  /* "hat_trie.pyx":62
+  /* "hat_trie.pyx":63
  * 
  *         finally:
  *             hattrie_iter_free(it)             # <<<<<<<<<<<<<<
@@ -2260,7 +2340,7 @@ static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject 
     __pyx_L6:;
   }
 
-  /* "hat_trie.pyx":46
+  /* "hat_trie.pyx":47
  *         return list(self.iterkeys())
  * 
  *     def iterkeys(self):             # <<<<<<<<<<<<<<
@@ -2282,7 +2362,7 @@ static PyObject *__pyx_gb_8hat_trie_8BaseTrie_20generator(__pyx_CoroutineObject 
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":65
+/* "hat_trie.pyx":66
  * 
  * 
  *     cdef value_t _getitem(self, char* key) except -1:             # <<<<<<<<<<<<<<
@@ -2303,9 +2383,9 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__getitem(struct __pyx_obj_8hat_trie_B
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_getitem", 0);
-  __Pyx_TraceCall("_getitem", __pyx_f[0], 65, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("_getitem", __pyx_f[0], 66, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":66
+  /* "hat_trie.pyx":67
  * 
  *     cdef value_t _getitem(self, char* key) except -1:
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))             # <<<<<<<<<<<<<<
@@ -2315,7 +2395,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__getitem(struct __pyx_obj_8hat_trie_B
   __pyx_t_1 = strlen(__pyx_v_key); 
   __pyx_v_value_ptr = hattrie_tryget(__pyx_v_self->_trie, __pyx_v_key, __pyx_t_1);
 
-  /* "hat_trie.pyx":67
+  /* "hat_trie.pyx":68
  *     cdef value_t _getitem(self, char* key) except -1:
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         if value_ptr == NULL:             # <<<<<<<<<<<<<<
@@ -2325,28 +2405,28 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__getitem(struct __pyx_obj_8hat_trie_B
   __pyx_t_2 = ((__pyx_v_value_ptr == NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "hat_trie.pyx":68
+    /* "hat_trie.pyx":69
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         if value_ptr == NULL:
  *             raise KeyError(key)             # <<<<<<<<<<<<<<
  *         return value_ptr[0]
  * 
  */
-    __pyx_t_3 = __Pyx_PyBytes_FromString(__pyx_v_key); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyBytes_FromString(__pyx_v_key); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_KeyError, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_KeyError, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "hat_trie.pyx":67
+    /* "hat_trie.pyx":68
  *     cdef value_t _getitem(self, char* key) except -1:
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         if value_ptr == NULL:             # <<<<<<<<<<<<<<
@@ -2355,7 +2435,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__getitem(struct __pyx_obj_8hat_trie_B
  */
   }
 
-  /* "hat_trie.pyx":69
+  /* "hat_trie.pyx":70
  *         if value_ptr == NULL:
  *             raise KeyError(key)
  *         return value_ptr[0]             # <<<<<<<<<<<<<<
@@ -2365,7 +2445,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__getitem(struct __pyx_obj_8hat_trie_B
   __pyx_r = (__pyx_v_value_ptr[0]);
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":65
+  /* "hat_trie.pyx":66
  * 
  * 
  *     cdef value_t _getitem(self, char* key) except -1:             # <<<<<<<<<<<<<<
@@ -2385,7 +2465,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__getitem(struct __pyx_obj_8hat_trie_B
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":71
+/* "hat_trie.pyx":72
  *         return value_ptr[0]
  * 
  *     cdef void _setitem(self, char* key, value_t value):             # <<<<<<<<<<<<<<
@@ -2401,9 +2481,9 @@ static void __pyx_f_8hat_trie_8BaseTrie__setitem(struct __pyx_obj_8hat_trie_Base
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_setitem", 0);
-  __Pyx_TraceCall("_setitem", __pyx_f[0], 71, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("_setitem", __pyx_f[0], 72, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":72
+  /* "hat_trie.pyx":73
  * 
  *     cdef void _setitem(self, char* key, value_t value):
  *         hattrie_get(self._trie, key, len(key))[0] = value             # <<<<<<<<<<<<<<
@@ -2413,7 +2493,7 @@ static void __pyx_f_8hat_trie_8BaseTrie__setitem(struct __pyx_obj_8hat_trie_Base
   __pyx_t_1 = strlen(__pyx_v_key); 
   (hattrie_get(__pyx_v_self->_trie, __pyx_v_key, __pyx_t_1)[0]) = __pyx_v_value;
 
-  /* "hat_trie.pyx":71
+  /* "hat_trie.pyx":72
  *         return value_ptr[0]
  * 
  *     cdef void _setitem(self, char* key, value_t value):             # <<<<<<<<<<<<<<
@@ -2430,7 +2510,7 @@ static void __pyx_f_8hat_trie_8BaseTrie__setitem(struct __pyx_obj_8hat_trie_Base
   __Pyx_RefNannyFinishContext();
 }
 
-/* "hat_trie.pyx":74
+/* "hat_trie.pyx":75
  *         hattrie_get(self._trie, key, len(key))[0] = value
  * 
  *     cdef value_t _setdefault(self, char* key, value_t value):             # <<<<<<<<<<<<<<
@@ -2449,9 +2529,9 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__setdefault(struct __pyx_obj_8hat_tri
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_setdefault", 0);
-  __Pyx_TraceCall("_setdefault", __pyx_f[0], 74, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("_setdefault", __pyx_f[0], 75, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":75
+  /* "hat_trie.pyx":76
  * 
  *     cdef value_t _setdefault(self, char* key, value_t value):
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))             # <<<<<<<<<<<<<<
@@ -2461,7 +2541,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__setdefault(struct __pyx_obj_8hat_tri
   __pyx_t_1 = strlen(__pyx_v_key); 
   __pyx_v_value_ptr = hattrie_tryget(__pyx_v_self->_trie, __pyx_v_key, __pyx_t_1);
 
-  /* "hat_trie.pyx":76
+  /* "hat_trie.pyx":77
  *     cdef value_t _setdefault(self, char* key, value_t value):
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         if value_ptr == NULL:             # <<<<<<<<<<<<<<
@@ -2471,7 +2551,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__setdefault(struct __pyx_obj_8hat_tri
   __pyx_t_2 = ((__pyx_v_value_ptr == NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "hat_trie.pyx":77
+    /* "hat_trie.pyx":78
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         if value_ptr == NULL:
  *             self._setitem(key, value)             # <<<<<<<<<<<<<<
@@ -2480,7 +2560,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__setdefault(struct __pyx_obj_8hat_tri
  */
     ((struct __pyx_vtabstruct_8hat_trie_BaseTrie *)__pyx_v_self->__pyx_vtab)->_setitem(__pyx_v_self, __pyx_v_key, __pyx_v_value);
 
-    /* "hat_trie.pyx":78
+    /* "hat_trie.pyx":79
  *         if value_ptr == NULL:
  *             self._setitem(key, value)
  *             return value             # <<<<<<<<<<<<<<
@@ -2490,7 +2570,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__setdefault(struct __pyx_obj_8hat_tri
     __pyx_r = __pyx_v_value;
     goto __pyx_L0;
 
-    /* "hat_trie.pyx":76
+    /* "hat_trie.pyx":77
  *     cdef value_t _setdefault(self, char* key, value_t value):
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         if value_ptr == NULL:             # <<<<<<<<<<<<<<
@@ -2499,7 +2579,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__setdefault(struct __pyx_obj_8hat_tri
  */
   }
 
-  /* "hat_trie.pyx":79
+  /* "hat_trie.pyx":80
  *             self._setitem(key, value)
  *             return value
  *         return value_ptr[0]             # <<<<<<<<<<<<<<
@@ -2509,7 +2589,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__setdefault(struct __pyx_obj_8hat_tri
   __pyx_r = (__pyx_v_value_ptr[0]);
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":74
+  /* "hat_trie.pyx":75
  *         hattrie_get(self._trie, key, len(key))[0] = value
  * 
  *     cdef value_t _setdefault(self, char* key, value_t value):             # <<<<<<<<<<<<<<
@@ -2527,7 +2607,7 @@ static value_t __pyx_f_8hat_trie_8BaseTrie__setdefault(struct __pyx_obj_8hat_tri
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":81
+/* "hat_trie.pyx":82
  *         return value_ptr[0]
  * 
  *     cdef bint _contains(self, char* key):             # <<<<<<<<<<<<<<
@@ -2545,9 +2625,9 @@ static int __pyx_f_8hat_trie_8BaseTrie__contains(struct __pyx_obj_8hat_trie_Base
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_contains", 0);
-  __Pyx_TraceCall("_contains", __pyx_f[0], 81, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("_contains", __pyx_f[0], 82, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":82
+  /* "hat_trie.pyx":83
  * 
  *     cdef bint _contains(self, char* key):
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))             # <<<<<<<<<<<<<<
@@ -2557,7 +2637,7 @@ static int __pyx_f_8hat_trie_8BaseTrie__contains(struct __pyx_obj_8hat_trie_Base
   __pyx_t_1 = strlen(__pyx_v_key); 
   __pyx_v_value_ptr = hattrie_tryget(__pyx_v_self->_trie, __pyx_v_key, __pyx_t_1);
 
-  /* "hat_trie.pyx":83
+  /* "hat_trie.pyx":84
  *     cdef bint _contains(self, char* key):
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         return value_ptr != NULL             # <<<<<<<<<<<<<<
@@ -2567,7 +2647,7 @@ static int __pyx_f_8hat_trie_8BaseTrie__contains(struct __pyx_obj_8hat_trie_Base
   __pyx_r = (__pyx_v_value_ptr != NULL);
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":81
+  /* "hat_trie.pyx":82
  *         return value_ptr[0]
  * 
  *     cdef bint _contains(self, char* key):             # <<<<<<<<<<<<<<
@@ -2585,7 +2665,7 @@ static int __pyx_f_8hat_trie_8BaseTrie__contains(struct __pyx_obj_8hat_trie_Base
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":110
+/* "hat_trie.pyx":111
  *     # internal encoding.
  * 
  *     def __getitem__(self, unicode key):             # <<<<<<<<<<<<<<
@@ -2602,7 +2682,7 @@ static PyObject *__pyx_pw_8hat_trie_7IntTrie_1__getitem__(PyObject *__pyx_v_self
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_7IntTrie___getitem__(((struct __pyx_obj_8hat_trie_IntTrie *)__pyx_v_self), ((PyObject*)__pyx_v_key));
 
   /* function exit code */
@@ -2626,9 +2706,9 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie___getitem__(struct __pyx_obj_8hat_t
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
-  __Pyx_TraceCall("__getitem__", __pyx_f[0], 110, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__getitem__", __pyx_f[0], 111, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":111
+  /* "hat_trie.pyx":112
  * 
  *     def __getitem__(self, unicode key):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -2637,15 +2717,15 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie___getitem__(struct __pyx_obj_8hat_t
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":112
+  /* "hat_trie.pyx":113
  *     def __getitem__(self, unicode key):
  *         cdef bytes bkey = key.encode('utf8')
  *         return self._getitem(bkey)             # <<<<<<<<<<<<<<
@@ -2653,15 +2733,15 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie___getitem__(struct __pyx_obj_8hat_t
  *     def __contains__(self, unicode key):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_3 = ((struct __pyx_vtabstruct_8hat_trie_IntTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyInt_From_value_t(__pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = ((struct __pyx_vtabstruct_8hat_trie_IntTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_value_t(__pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":110
+  /* "hat_trie.pyx":111
  *     # internal encoding.
  * 
  *     def __getitem__(self, unicode key):             # <<<<<<<<<<<<<<
@@ -2682,7 +2762,7 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie___getitem__(struct __pyx_obj_8hat_t
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":114
+/* "hat_trie.pyx":115
  *         return self._getitem(bkey)
  * 
  *     def __contains__(self, unicode key):             # <<<<<<<<<<<<<<
@@ -2699,7 +2779,7 @@ static int __pyx_pw_8hat_trie_7IntTrie_3__contains__(PyObject *__pyx_v_self, PyO
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__contains__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_7IntTrie_2__contains__(((struct __pyx_obj_8hat_trie_IntTrie *)__pyx_v_self), ((PyObject*)__pyx_v_key));
 
   /* function exit code */
@@ -2722,9 +2802,9 @@ static int __pyx_pf_8hat_trie_7IntTrie_2__contains__(struct __pyx_obj_8hat_trie_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__contains__", 0);
-  __Pyx_TraceCall("__contains__", __pyx_f[0], 114, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__contains__", __pyx_f[0], 115, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":115
+  /* "hat_trie.pyx":116
  * 
  *     def __contains__(self, unicode key):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -2733,26 +2813,26 @@ static int __pyx_pf_8hat_trie_7IntTrie_2__contains__(struct __pyx_obj_8hat_trie_
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":116
+  /* "hat_trie.pyx":117
  *     def __contains__(self, unicode key):
  *         cdef bytes bkey = key.encode('utf8')
  *         return self._contains(bkey)             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(self, unicode key, int value):
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = ((struct __pyx_vtabstruct_8hat_trie_IntTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._contains(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2);
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":114
+  /* "hat_trie.pyx":115
  *         return self._getitem(bkey)
  * 
  *     def __contains__(self, unicode key):             # <<<<<<<<<<<<<<
@@ -2772,7 +2852,7 @@ static int __pyx_pf_8hat_trie_7IntTrie_2__contains__(struct __pyx_obj_8hat_trie_
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":118
+/* "hat_trie.pyx":119
  *         return self._contains(bkey)
  * 
  *     def __setitem__(self, unicode key, int value):             # <<<<<<<<<<<<<<
@@ -2791,7 +2871,7 @@ static int __pyx_pw_8hat_trie_7IntTrie_5__setitem__(PyObject *__pyx_v_self, PyOb
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__ (wrapper)", 0);
   assert(__pyx_arg_value); {
-    __pyx_v_value = __Pyx_PyInt_As_int(__pyx_arg_value); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_value = __Pyx_PyInt_As_int(__pyx_arg_value); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2799,7 +2879,7 @@ static int __pyx_pw_8hat_trie_7IntTrie_5__setitem__(PyObject *__pyx_v_self, PyOb
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_7IntTrie_4__setitem__(((struct __pyx_obj_8hat_trie_IntTrie *)__pyx_v_self), ((PyObject*)__pyx_v_key), ((int)__pyx_v_value));
 
   /* function exit code */
@@ -2822,9 +2902,9 @@ static int __pyx_pf_8hat_trie_7IntTrie_4__setitem__(struct __pyx_obj_8hat_trie_I
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__setitem__", 0);
-  __Pyx_TraceCall("__setitem__", __pyx_f[0], 118, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__setitem__", __pyx_f[0], 119, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":119
+  /* "hat_trie.pyx":120
  * 
  *     def __setitem__(self, unicode key, int value):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -2833,25 +2913,25 @@ static int __pyx_pf_8hat_trie_7IntTrie_4__setitem__(struct __pyx_obj_8hat_trie_I
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":120
+  /* "hat_trie.pyx":121
  *     def __setitem__(self, unicode key, int value):
  *         cdef bytes bkey = key.encode('utf8')
  *         self._setitem(bkey, value)             # <<<<<<<<<<<<<<
  * 
  *     def get(self, unicode key, value=-1):
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   ((struct __pyx_vtabstruct_8hat_trie_IntTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._setitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2, __pyx_v_value);
 
-  /* "hat_trie.pyx":118
+  /* "hat_trie.pyx":119
  *         return self._contains(bkey)
  * 
  *     def __setitem__(self, unicode key, int value):             # <<<<<<<<<<<<<<
@@ -2873,7 +2953,7 @@ static int __pyx_pf_8hat_trie_7IntTrie_4__setitem__(struct __pyx_obj_8hat_trie_I
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":122
+/* "hat_trie.pyx":123
  *         self._setitem(bkey, value)
  * 
  *     def get(self, unicode key, value=-1):             # <<<<<<<<<<<<<<
@@ -2917,7 +2997,7 @@ static PyObject *__pyx_pw_8hat_trie_7IntTrie_7get(PyObject *__pyx_v_self, PyObje
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2932,13 +3012,13 @@ static PyObject *__pyx_pw_8hat_trie_7IntTrie_7get(PyObject *__pyx_v_self, PyObje
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("get", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("hat_trie.IntTrie.get", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_7IntTrie_6get(((struct __pyx_obj_8hat_trie_IntTrie *)__pyx_v_self), __pyx_v_key, __pyx_v_value);
 
   /* function exit code */
@@ -2968,9 +3048,9 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_Int
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get", 0);
-  __Pyx_TraceCall("get", __pyx_f[0], 122, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("get", __pyx_f[0], 123, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":123
+  /* "hat_trie.pyx":124
  * 
  *     def get(self, unicode key, value=-1):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -2979,15 +3059,15 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_Int
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":124
+  /* "hat_trie.pyx":125
  *     def get(self, unicode key, value=-1):
  *         cdef bytes bkey = key.encode('utf8')
  *         try:             # <<<<<<<<<<<<<<
@@ -3001,7 +3081,7 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_Int
     __Pyx_XGOTREF(__pyx_t_4);
     /*try:*/ {
 
-      /* "hat_trie.pyx":125
+      /* "hat_trie.pyx":126
  *         cdef bytes bkey = key.encode('utf8')
  *         try:
  *             return self._getitem(bkey)             # <<<<<<<<<<<<<<
@@ -3009,15 +3089,15 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_Int
  *             return value
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_5 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      __pyx_t_6 = ((struct __pyx_vtabstruct_8hat_trie_IntTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_5); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      __pyx_t_1 = __Pyx_PyInt_From_value_t(__pyx_t_6); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_5 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_6 = ((struct __pyx_vtabstruct_8hat_trie_IntTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_5); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_1 = __Pyx_PyInt_From_value_t(__pyx_t_6); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_r = __pyx_t_1;
       __pyx_t_1 = 0;
       goto __pyx_L7_try_return;
 
-      /* "hat_trie.pyx":124
+      /* "hat_trie.pyx":125
  *     def get(self, unicode key, value=-1):
  *         cdef bytes bkey = key.encode('utf8')
  *         try:             # <<<<<<<<<<<<<<
@@ -3028,7 +3108,7 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_Int
     __pyx_L3_error:;
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "hat_trie.pyx":126
+    /* "hat_trie.pyx":127
  *         try:
  *             return self._getitem(bkey)
  *         except KeyError:             # <<<<<<<<<<<<<<
@@ -3038,12 +3118,12 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_Int
     __pyx_t_7 = PyErr_ExceptionMatches(__pyx_builtin_KeyError);
     if (__pyx_t_7) {
       __Pyx_AddTraceback("hat_trie.IntTrie.get", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_8, &__pyx_t_9) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
+      if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_8, &__pyx_t_9) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GOTREF(__pyx_t_9);
 
-      /* "hat_trie.pyx":127
+      /* "hat_trie.pyx":128
  *             return self._getitem(bkey)
  *         except KeyError:
  *             return value             # <<<<<<<<<<<<<<
@@ -3061,7 +3141,7 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_Int
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "hat_trie.pyx":124
+    /* "hat_trie.pyx":125
  *     def get(self, unicode key, value=-1):
  *         cdef bytes bkey = key.encode('utf8')
  *         try:             # <<<<<<<<<<<<<<
@@ -3087,7 +3167,7 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_Int
     goto __pyx_L0;
   }
 
-  /* "hat_trie.pyx":122
+  /* "hat_trie.pyx":123
  *         self._setitem(bkey, value)
  * 
  *     def get(self, unicode key, value=-1):             # <<<<<<<<<<<<<<
@@ -3110,7 +3190,7 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_6get(struct __pyx_obj_8hat_trie_Int
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":129
+/* "hat_trie.pyx":130
  *             return value
  * 
  *     def setdefault(self, unicode key, int value):             # <<<<<<<<<<<<<<
@@ -3149,11 +3229,11 @@ static PyObject *__pyx_pw_8hat_trie_7IntTrie_9setdefault(PyObject *__pyx_v_self,
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setdefault") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setdefault") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -3162,17 +3242,17 @@ static PyObject *__pyx_pw_8hat_trie_7IntTrie_9setdefault(PyObject *__pyx_v_self,
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
     __pyx_v_key = ((PyObject*)values[0]);
-    __pyx_v_value = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_value = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_value == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("hat_trie.IntTrie.setdefault", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_7IntTrie_8setdefault(((struct __pyx_obj_8hat_trie_IntTrie *)__pyx_v_self), __pyx_v_key, __pyx_v_value);
 
   /* function exit code */
@@ -3195,9 +3275,9 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_8setdefault(struct __pyx_obj_8hat_t
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setdefault", 0);
-  __Pyx_TraceCall("setdefault", __pyx_f[0], 129, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("setdefault", __pyx_f[0], 130, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":130
+  /* "hat_trie.pyx":131
  * 
  *     def setdefault(self, unicode key, int value):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -3206,15 +3286,15 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_8setdefault(struct __pyx_obj_8hat_t
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":131
+  /* "hat_trie.pyx":132
  *     def setdefault(self, unicode key, int value):
  *         cdef bytes bkey = key.encode('utf8')
  *         return self._setdefault(bkey, value)             # <<<<<<<<<<<<<<
@@ -3222,14 +3302,14 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_8setdefault(struct __pyx_obj_8hat_t
  *     def iterkeys(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyInt_From_value_t(((struct __pyx_vtabstruct_8hat_trie_IntTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._setdefault(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2, __pyx_v_value)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_value_t(((struct __pyx_vtabstruct_8hat_trie_IntTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._setdefault(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2, __pyx_v_value)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":129
+  /* "hat_trie.pyx":130
  *             return value
  * 
  *     def setdefault(self, unicode key, int value):             # <<<<<<<<<<<<<<
@@ -3251,7 +3331,7 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_8setdefault(struct __pyx_obj_8hat_t
 }
 static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "hat_trie.pyx":133
+/* "hat_trie.pyx":134
  *         return self._setdefault(bkey, value)
  * 
  *     def iterkeys(self):             # <<<<<<<<<<<<<<
@@ -3287,12 +3367,12 @@ static PyObject *__pyx_pf_8hat_trie_7IntTrie_10iterkeys(struct __pyx_obj_8hat_tr
     return NULL;
   }
   __Pyx_GOTREF(__pyx_cur_scope);
-  __Pyx_TraceCall("iterkeys", __pyx_f[0], 133, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 133; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("iterkeys", __pyx_f[0], 134, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
   __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_8hat_trie_7IntTrie_12generator1, (PyObject *) __pyx_cur_scope, __pyx_n_s_iterkeys, __pyx_n_s_IntTrie_iterkeys); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 133; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_8hat_trie_7IntTrie_12generator1, (PyObject *) __pyx_cur_scope, __pyx_n_s_iterkeys, __pyx_n_s_IntTrie_iterkeys); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -3332,16 +3412,16 @@ static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject 
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 133; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "hat_trie.pyx":134
+  /* "hat_trie.pyx":135
  * 
  *     def iterkeys(self):
  *         for key in BaseTrie.iterkeys(self):             # <<<<<<<<<<<<<<
  *             yield key.decode('utf8')
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_8hat_trie_BaseTrie), __pyx_n_s_iterkeys); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_8hat_trie_BaseTrie), __pyx_n_s_iterkeys); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3354,16 +3434,16 @@ static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject 
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_cur_scope->__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_cur_scope->__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_v_self));
     __Pyx_GIVEREF(((PyObject *)__pyx_cur_scope->__pyx_v_self));
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_cur_scope->__pyx_v_self));
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -3372,9 +3452,9 @@ static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject 
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_5 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_6 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -3382,17 +3462,17 @@ static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject 
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -3402,7 +3482,7 @@ static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject 
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         break;
       }
@@ -3413,16 +3493,16 @@ static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject 
     __Pyx_GIVEREF(__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "hat_trie.pyx":135
+    /* "hat_trie.pyx":136
  *     def iterkeys(self):
  *         for key in BaseTrie.iterkeys(self):
  *             yield key.decode('utf8')             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_key, __pyx_n_s_decode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_key, __pyx_n_s_decode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_r = __pyx_t_4;
@@ -3442,9 +3522,9 @@ static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject 
     __Pyx_XGOTREF(__pyx_t_2);
     __pyx_t_5 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_6 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "hat_trie.pyx":134
+    /* "hat_trie.pyx":135
  * 
  *     def iterkeys(self):
  *         for key in BaseTrie.iterkeys(self):             # <<<<<<<<<<<<<<
@@ -3454,7 +3534,7 @@ static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject 
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "hat_trie.pyx":133
+  /* "hat_trie.pyx":134
  *         return self._setdefault(bkey, value)
  * 
  *     def iterkeys(self):             # <<<<<<<<<<<<<<
@@ -3479,7 +3559,1013 @@ static PyObject *__pyx_gb_8hat_trie_7IntTrie_12generator1(__pyx_CoroutineObject 
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":146
+/* "hat_trie.pyx":149
+ *     # systems.
+ * 
+ *     def __getitem__(self, unicode key):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         return self._fromvalue(self._getitem(bkey))
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_8hat_trie_9FloatTrie_1__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_key); /*proto*/
+static PyObject *__pyx_pw_8hat_trie_9FloatTrie_1__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_key) {
+  CYTHON_UNUSED int __pyx_lineno = 0;
+  CYTHON_UNUSED const char *__pyx_filename = NULL;
+  CYTHON_UNUSED int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_8hat_trie_9FloatTrie___getitem__(((struct __pyx_obj_8hat_trie_FloatTrie *)__pyx_v_self), ((PyObject*)__pyx_v_key));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_8hat_trie_9FloatTrie___getitem__(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key) {
+  PyObject *__pyx_v_bkey = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  char *__pyx_t_2;
+  value_t __pyx_t_3;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__getitem__", 0);
+  __Pyx_TraceCall("__getitem__", __pyx_f[0], 149, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+
+  /* "hat_trie.pyx":150
+ * 
+ *     def __getitem__(self, unicode key):
+ *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
+ *         return self._fromvalue(self._getitem(bkey))
+ * 
+ */
+  if (unlikely(__pyx_v_key == Py_None)) {
+    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_bkey = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "hat_trie.pyx":151
+ *     def __getitem__(self, unicode key):
+ *         cdef bytes bkey = key.encode('utf8')
+ *         return self._fromvalue(self._getitem(bkey))             # <<<<<<<<<<<<<<
+ * 
+ *     def __contains__(self, unicode key):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = ((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_fromvalue(__pyx_v_self, __pyx_t_3)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "hat_trie.pyx":149
+ *     # systems.
+ * 
+ *     def __getitem__(self, unicode key):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         return self._fromvalue(self._getitem(bkey))
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("hat_trie.FloatTrie.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_bkey);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_TraceReturn(__pyx_r, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "hat_trie.pyx":153
+ *         return self._fromvalue(self._getitem(bkey))
+ * 
+ *     def __contains__(self, unicode key):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         return self._contains(bkey)
+ */
+
+/* Python wrapper */
+static int __pyx_pw_8hat_trie_9FloatTrie_3__contains__(PyObject *__pyx_v_self, PyObject *__pyx_v_key); /*proto*/
+static int __pyx_pw_8hat_trie_9FloatTrie_3__contains__(PyObject *__pyx_v_self, PyObject *__pyx_v_key) {
+  CYTHON_UNUSED int __pyx_lineno = 0;
+  CYTHON_UNUSED const char *__pyx_filename = NULL;
+  CYTHON_UNUSED int __pyx_clineno = 0;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__contains__ (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_8hat_trie_9FloatTrie_2__contains__(((struct __pyx_obj_8hat_trie_FloatTrie *)__pyx_v_self), ((PyObject*)__pyx_v_key));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_8hat_trie_9FloatTrie_2__contains__(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key) {
+  PyObject *__pyx_v_bkey = 0;
+  int __pyx_r;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  char *__pyx_t_2;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__contains__", 0);
+  __Pyx_TraceCall("__contains__", __pyx_f[0], 153, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+
+  /* "hat_trie.pyx":154
+ * 
+ *     def __contains__(self, unicode key):
+ *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
+ *         return self._contains(bkey)
+ * 
+ */
+  if (unlikely(__pyx_v_key == Py_None)) {
+    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 154; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 154; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 154; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_bkey = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "hat_trie.pyx":155
+ *     def __contains__(self, unicode key):
+ *         cdef bytes bkey = key.encode('utf8')
+ *         return self._contains(bkey)             # <<<<<<<<<<<<<<
+ * 
+ *     def __setitem__(self, unicode key, float value):
+ */
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = ((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._contains(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2);
+  goto __pyx_L0;
+
+  /* "hat_trie.pyx":153
+ *         return self._fromvalue(self._getitem(bkey))
+ * 
+ *     def __contains__(self, unicode key):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         return self._contains(bkey)
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("hat_trie.FloatTrie.__contains__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_bkey);
+  __Pyx_TraceReturn(Py_None, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "hat_trie.pyx":157
+ *         return self._contains(bkey)
+ * 
+ *     def __setitem__(self, unicode key, float value):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         self._setitem(bkey, self._tovalue(value))
+ */
+
+/* Python wrapper */
+static int __pyx_pw_8hat_trie_9FloatTrie_5__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_key, PyObject *__pyx_arg_value); /*proto*/
+static int __pyx_pw_8hat_trie_9FloatTrie_5__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_key, PyObject *__pyx_arg_value) {
+  float __pyx_v_value;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setitem__ (wrapper)", 0);
+  assert(__pyx_arg_value); {
+    __pyx_v_value = __pyx_PyFloat_AsFloat(__pyx_arg_value); if (unlikely((__pyx_v_value == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("hat_trie.FloatTrie.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return -1;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_8hat_trie_9FloatTrie_4__setitem__(((struct __pyx_obj_8hat_trie_FloatTrie *)__pyx_v_self), ((PyObject*)__pyx_v_key), ((float)__pyx_v_value));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_8hat_trie_9FloatTrie_4__setitem__(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key, float __pyx_v_value) {
+  PyObject *__pyx_v_bkey = 0;
+  int __pyx_r;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  char *__pyx_t_2;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__setitem__", 0);
+  __Pyx_TraceCall("__setitem__", __pyx_f[0], 157, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+
+  /* "hat_trie.pyx":158
+ * 
+ *     def __setitem__(self, unicode key, float value):
+ *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
+ *         self._setitem(bkey, self._tovalue(value))
+ * 
+ */
+  if (unlikely(__pyx_v_key == Py_None)) {
+    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_bkey = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "hat_trie.pyx":159
+ *     def __setitem__(self, unicode key, float value):
+ *         cdef bytes bkey = key.encode('utf8')
+ *         self._setitem(bkey, self._tovalue(value))             # <<<<<<<<<<<<<<
+ * 
+ *     def get(self, unicode key, value=float('nan')):
+ */
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  ((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._setitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2, ((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_tovalue(__pyx_v_self, __pyx_v_value));
+
+  /* "hat_trie.pyx":157
+ *         return self._contains(bkey)
+ * 
+ *     def __setitem__(self, unicode key, float value):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         self._setitem(bkey, self._tovalue(value))
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("hat_trie.FloatTrie.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_bkey);
+  __Pyx_TraceReturn(Py_None, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "hat_trie.pyx":161
+ *         self._setitem(bkey, self._tovalue(value))
+ * 
+ *     def get(self, unicode key, value=float('nan')):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         try:
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_8hat_trie_9FloatTrie_7get(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_8hat_trie_9FloatTrie_7get(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_key = 0;
+  PyObject *__pyx_v_value = 0;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_key,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    values[1] = __pyx_k__2;
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_key)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value);
+          if (value) { values[1] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_key = ((PyObject*)values[0]);
+    __pyx_v_value = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("get", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("hat_trie.FloatTrie.get", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_8hat_trie_9FloatTrie_6get(((struct __pyx_obj_8hat_trie_FloatTrie *)__pyx_v_self), __pyx_v_key, __pyx_v_value);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_8hat_trie_9FloatTrie_6get(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key, PyObject *__pyx_v_value) {
+  PyObject *__pyx_v_bkey = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  char *__pyx_t_5;
+  value_t __pyx_t_6;
+  int __pyx_t_7;
+  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get", 0);
+  __Pyx_TraceCall("get", __pyx_f[0], 161, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+
+  /* "hat_trie.pyx":162
+ * 
+ *     def get(self, unicode key, value=float('nan')):
+ *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
+ *         try:
+ *             return self._fromvalue(self._getitem(bkey))
+ */
+  if (unlikely(__pyx_v_key == Py_None)) {
+    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_bkey = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "hat_trie.pyx":163
+ *     def get(self, unicode key, value=float('nan')):
+ *         cdef bytes bkey = key.encode('utf8')
+ *         try:             # <<<<<<<<<<<<<<
+ *             return self._fromvalue(self._getitem(bkey))
+ *         except KeyError:
+ */
+  {
+    __Pyx_ExceptionSave(&__pyx_t_2, &__pyx_t_3, &__pyx_t_4);
+    __Pyx_XGOTREF(__pyx_t_2);
+    __Pyx_XGOTREF(__pyx_t_3);
+    __Pyx_XGOTREF(__pyx_t_4);
+    /*try:*/ {
+
+      /* "hat_trie.pyx":164
+ *         cdef bytes bkey = key.encode('utf8')
+ *         try:
+ *             return self._fromvalue(self._getitem(bkey))             # <<<<<<<<<<<<<<
+ *         except KeyError:
+ *             return value
+ */
+      __Pyx_XDECREF(__pyx_r);
+      __pyx_t_5 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_6 = ((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_5); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_1 = PyFloat_FromDouble(((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_fromvalue(__pyx_v_self, __pyx_t_6)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_r = __pyx_t_1;
+      __pyx_t_1 = 0;
+      goto __pyx_L7_try_return;
+
+      /* "hat_trie.pyx":163
+ *     def get(self, unicode key, value=float('nan')):
+ *         cdef bytes bkey = key.encode('utf8')
+ *         try:             # <<<<<<<<<<<<<<
+ *             return self._fromvalue(self._getitem(bkey))
+ *         except KeyError:
+ */
+    }
+    __pyx_L3_error:;
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "hat_trie.pyx":165
+ *         try:
+ *             return self._fromvalue(self._getitem(bkey))
+ *         except KeyError:             # <<<<<<<<<<<<<<
+ *             return value
+ * 
+ */
+    __pyx_t_7 = PyErr_ExceptionMatches(__pyx_builtin_KeyError);
+    if (__pyx_t_7) {
+      __Pyx_AddTraceback("hat_trie.FloatTrie.get", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_8, &__pyx_t_9) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 165; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_GOTREF(__pyx_t_9);
+
+      /* "hat_trie.pyx":166
+ *             return self._fromvalue(self._getitem(bkey))
+ *         except KeyError:
+ *             return value             # <<<<<<<<<<<<<<
+ * 
+ *     def setdefault(self, unicode key, float value):
+ */
+      __Pyx_XDECREF(__pyx_r);
+      __Pyx_INCREF(__pyx_v_value);
+      __pyx_r = __pyx_v_value;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      goto __pyx_L6_except_return;
+    }
+    goto __pyx_L5_except_error;
+    __pyx_L5_except_error:;
+
+    /* "hat_trie.pyx":163
+ *     def get(self, unicode key, value=float('nan')):
+ *         cdef bytes bkey = key.encode('utf8')
+ *         try:             # <<<<<<<<<<<<<<
+ *             return self._fromvalue(self._getitem(bkey))
+ *         except KeyError:
+ */
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __Pyx_XGIVEREF(__pyx_t_4);
+    __Pyx_ExceptionReset(__pyx_t_2, __pyx_t_3, __pyx_t_4);
+    goto __pyx_L1_error;
+    __pyx_L7_try_return:;
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __Pyx_XGIVEREF(__pyx_t_4);
+    __Pyx_ExceptionReset(__pyx_t_2, __pyx_t_3, __pyx_t_4);
+    goto __pyx_L0;
+    __pyx_L6_except_return:;
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __Pyx_XGIVEREF(__pyx_t_4);
+    __Pyx_ExceptionReset(__pyx_t_2, __pyx_t_3, __pyx_t_4);
+    goto __pyx_L0;
+  }
+
+  /* "hat_trie.pyx":161
+ *         self._setitem(bkey, self._tovalue(value))
+ * 
+ *     def get(self, unicode key, value=float('nan')):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         try:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_AddTraceback("hat_trie.FloatTrie.get", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_bkey);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_TraceReturn(__pyx_r, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "hat_trie.pyx":168
+ *             return value
+ * 
+ *     def setdefault(self, unicode key, float value):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         return self._fromvalue(self._setdefault(bkey, self._tovalue(value)))
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_8hat_trie_9FloatTrie_9setdefault(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_8hat_trie_9FloatTrie_9setdefault(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_key = 0;
+  float __pyx_v_value;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("setdefault (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_key,&__pyx_n_s_value,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_key)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setdefault") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_key = ((PyObject*)values[0]);
+    __pyx_v_value = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_value == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("hat_trie.FloatTrie.setdefault", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_8hat_trie_9FloatTrie_8setdefault(((struct __pyx_obj_8hat_trie_FloatTrie *)__pyx_v_self), __pyx_v_key, __pyx_v_value);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_8hat_trie_9FloatTrie_8setdefault(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, PyObject *__pyx_v_key, float __pyx_v_value) {
+  PyObject *__pyx_v_bkey = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  char *__pyx_t_2;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("setdefault", 0);
+  __Pyx_TraceCall("setdefault", __pyx_f[0], 168, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+
+  /* "hat_trie.pyx":169
+ * 
+ *     def setdefault(self, unicode key, float value):
+ *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
+ *         return self._fromvalue(self._setdefault(bkey, self._tovalue(value)))
+ * 
+ */
+  if (unlikely(__pyx_v_key == Py_None)) {
+    PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_bkey = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "hat_trie.pyx":170
+ *     def setdefault(self, unicode key, float value):
+ *         cdef bytes bkey = key.encode('utf8')
+ *         return self._fromvalue(self._setdefault(bkey, self._tovalue(value)))             # <<<<<<<<<<<<<<
+ * 
+ *     def iterkeys(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_fromvalue(__pyx_v_self, ((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._setdefault(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2, ((struct __pyx_vtabstruct_8hat_trie_FloatTrie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_tovalue(__pyx_v_self, __pyx_v_value)))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "hat_trie.pyx":168
+ *             return value
+ * 
+ *     def setdefault(self, unicode key, float value):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         return self._fromvalue(self._setdefault(bkey, self._tovalue(value)))
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("hat_trie.FloatTrie.setdefault", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_bkey);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_TraceReturn(__pyx_r, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+static PyObject *__pyx_gb_8hat_trie_9FloatTrie_12generator2(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+
+/* "hat_trie.pyx":172
+ *         return self._fromvalue(self._setdefault(bkey, self._tovalue(value)))
+ * 
+ *     def iterkeys(self):             # <<<<<<<<<<<<<<
+ *         for key in BaseTrie.iterkeys(self):
+ *             yield key.decode('utf8')
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_8hat_trie_9FloatTrie_11iterkeys(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_8hat_trie_9FloatTrie_11iterkeys(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("iterkeys (wrapper)", 0);
+  __pyx_r = __pyx_pf_8hat_trie_9FloatTrie_10iterkeys(((struct __pyx_obj_8hat_trie_FloatTrie *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_8hat_trie_9FloatTrie_10iterkeys(struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self) {
+  struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys *__pyx_cur_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("iterkeys", 0);
+  __pyx_cur_scope = (struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys *)__pyx_tp_new_8hat_trie___pyx_scope_struct_2_iterkeys(__pyx_ptype_8hat_trie___pyx_scope_struct_2_iterkeys, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __Pyx_GOTREF(__pyx_cur_scope);
+  __Pyx_TraceCall("iterkeys", __pyx_f[0], 172, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
+  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  {
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_8hat_trie_9FloatTrie_12generator2, (PyObject *) __pyx_cur_scope, __pyx_n_s_iterkeys, __pyx_n_s_FloatTrie_iterkeys); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_cur_scope);
+    __Pyx_RefNannyFinishContext();
+    return (PyObject *) gen;
+  }
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("hat_trie.FloatTrie.iterkeys", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_TraceReturn(__pyx_r, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_gb_8hat_trie_9FloatTrie_12generator2(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+{
+  struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys *__pyx_cur_scope = ((struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys *)__pyx_generator->closure);
+  PyObject *__pyx_r = NULL;
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  Py_ssize_t __pyx_t_5;
+  PyObject *(*__pyx_t_6)(PyObject *);
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("None", 0);
+  switch (__pyx_generator->resume_label) {
+    case 0: goto __pyx_L3_first_run;
+    case 1: goto __pyx_L6_resume_from_yield;
+    default: /* CPython raises the right error here */
+    __Pyx_RefNannyFinishContext();
+    return NULL;
+  }
+  __pyx_L3_first_run:;
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+  /* "hat_trie.pyx":173
+ * 
+ *     def iterkeys(self):
+ *         for key in BaseTrie.iterkeys(self):             # <<<<<<<<<<<<<<
+ *             yield key.decode('utf8')
+ * 
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_8hat_trie_BaseTrie), __pyx_n_s_iterkeys); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_3) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_cur_scope->__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
+    __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_v_self));
+    __Pyx_GIVEREF(((PyObject *)__pyx_cur_scope->__pyx_v_self));
+    PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_cur_scope->__pyx_v_self));
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
+    __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_5 = 0;
+    __pyx_t_6 = NULL;
+  } else {
+    __pyx_t_5 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_6 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  for (;;) {
+    if (likely(!__pyx_t_6)) {
+      if (likely(PyList_CheckExact(__pyx_t_2))) {
+        if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_2)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #else
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_1);
+        #endif
+      } else {
+        if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+        #if CYTHON_COMPILING_IN_CPYTHON
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        #else
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_1);
+        #endif
+      }
+    } else {
+      __pyx_t_1 = __pyx_t_6(__pyx_t_2);
+      if (unlikely(!__pyx_t_1)) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        }
+        break;
+      }
+      __Pyx_GOTREF(__pyx_t_1);
+    }
+    __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_key);
+    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_key, __pyx_t_1);
+    __Pyx_GIVEREF(__pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "hat_trie.pyx":174
+ *     def iterkeys(self):
+ *         for key in BaseTrie.iterkeys(self):
+ *             yield key.decode('utf8')             # <<<<<<<<<<<<<<
+ * 
+ *     cdef float _fromvalue(self, value_t value):
+ */
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_key, __pyx_n_s_decode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_r = __pyx_t_4;
+    __pyx_t_4 = 0;
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __pyx_cur_scope->__pyx_t_0 = __pyx_t_2;
+    __pyx_cur_scope->__pyx_t_1 = __pyx_t_5;
+    __pyx_cur_scope->__pyx_t_2 = __pyx_t_6;
+    __Pyx_XGIVEREF(__pyx_r);
+    __Pyx_RefNannyFinishContext();
+    /* return from generator, yielding value */
+    __pyx_generator->resume_label = 1;
+    return __pyx_r;
+    __pyx_L6_resume_from_yield:;
+    __pyx_t_2 = __pyx_cur_scope->__pyx_t_0;
+    __pyx_cur_scope->__pyx_t_0 = 0;
+    __Pyx_XGOTREF(__pyx_t_2);
+    __pyx_t_5 = __pyx_cur_scope->__pyx_t_1;
+    __pyx_t_6 = __pyx_cur_scope->__pyx_t_2;
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+    /* "hat_trie.pyx":173
+ * 
+ *     def iterkeys(self):
+ *         for key in BaseTrie.iterkeys(self):             # <<<<<<<<<<<<<<
+ *             yield key.decode('utf8')
+ * 
+ */
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "hat_trie.pyx":172
+ *         return self._fromvalue(self._setdefault(bkey, self._tovalue(value)))
+ * 
+ *     def iterkeys(self):             # <<<<<<<<<<<<<<
+ *         for key in BaseTrie.iterkeys(self):
+ *             yield key.decode('utf8')
+ */
+
+  /* function exit code */
+  PyErr_SetNone(PyExc_StopIteration);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("iterkeys", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_r); __pyx_r = 0;
+  __pyx_generator->resume_label = -1;
+  __Pyx_Coroutine_clear((PyObject*)__pyx_generator);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "hat_trie.pyx":176
+ *             yield key.decode('utf8')
+ * 
+ *     cdef float _fromvalue(self, value_t value):             # <<<<<<<<<<<<<<
+ *         cdef float* float_ptr = <float *> &value
+ *         return float_ptr[0]
+ */
+
+static float __pyx_f_8hat_trie_9FloatTrie__fromvalue(CYTHON_UNUSED struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, value_t __pyx_v_value) {
+  float *__pyx_v_float_ptr;
+  float __pyx_r;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("_fromvalue", 0);
+  __Pyx_TraceCall("_fromvalue", __pyx_f[0], 176, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+
+  /* "hat_trie.pyx":177
+ * 
+ *     cdef float _fromvalue(self, value_t value):
+ *         cdef float* float_ptr = <float *> &value             # <<<<<<<<<<<<<<
+ *         return float_ptr[0]
+ * 
+ */
+  __pyx_v_float_ptr = ((float *)(&__pyx_v_value));
+
+  /* "hat_trie.pyx":178
+ *     cdef float _fromvalue(self, value_t value):
+ *         cdef float* float_ptr = <float *> &value
+ *         return float_ptr[0]             # <<<<<<<<<<<<<<
+ * 
+ *     cdef value_t _tovalue(self, float value):
+ */
+  __pyx_r = (__pyx_v_float_ptr[0]);
+  goto __pyx_L0;
+
+  /* "hat_trie.pyx":176
+ *             yield key.decode('utf8')
+ * 
+ *     cdef float _fromvalue(self, value_t value):             # <<<<<<<<<<<<<<
+ *         cdef float* float_ptr = <float *> &value
+ *         return float_ptr[0]
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_WriteUnraisable("hat_trie.FloatTrie._fromvalue", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_TraceReturn(Py_None, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "hat_trie.pyx":180
+ *         return float_ptr[0]
+ * 
+ *     cdef value_t _tovalue(self, float value):             # <<<<<<<<<<<<<<
+ *         cdef value_t* value_ptr = <value_t *> &value
+ *         return value_ptr[0]
+ */
+
+static value_t __pyx_f_8hat_trie_9FloatTrie__tovalue(CYTHON_UNUSED struct __pyx_obj_8hat_trie_FloatTrie *__pyx_v_self, float __pyx_v_value) {
+  value_t *__pyx_v_value_ptr;
+  value_t __pyx_r;
+  __Pyx_TraceDeclarations
+  __Pyx_RefNannyDeclarations
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("_tovalue", 0);
+  __Pyx_TraceCall("_tovalue", __pyx_f[0], 180, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+
+  /* "hat_trie.pyx":181
+ * 
+ *     cdef value_t _tovalue(self, float value):
+ *         cdef value_t* value_ptr = <value_t *> &value             # <<<<<<<<<<<<<<
+ *         return value_ptr[0]
+ * 
+ */
+  __pyx_v_value_ptr = ((value_t *)(&__pyx_v_value));
+
+  /* "hat_trie.pyx":182
+ *     cdef value_t _tovalue(self, float value):
+ *         cdef value_t* value_ptr = <value_t *> &value
+ *         return value_ptr[0]             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_r = (__pyx_v_value_ptr[0]);
+  goto __pyx_L0;
+
+  /* "hat_trie.pyx":180
+ *         return float_ptr[0]
+ * 
+ *     cdef value_t _tovalue(self, float value):             # <<<<<<<<<<<<<<
+ *         cdef value_t* value_ptr = <value_t *> &value
+ *         return value_ptr[0]
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_WriteUnraisable("hat_trie.FloatTrie._tovalue", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_TraceReturn(Py_None, 0);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "hat_trie.pyx":193
  *     # for more details.
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -3508,9 +4594,9 @@ static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
-  __Pyx_TraceCall("__dealloc__", __pyx_f[0], 146, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 146; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__dealloc__", __pyx_f[0], 193, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 193; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":147
+  /* "hat_trie.pyx":194
  * 
  *     def __dealloc__(self):
  *         cdef hattrie_iter_t* it = hattrie_iter_begin(self._trie, 0)             # <<<<<<<<<<<<<<
@@ -3519,7 +4605,7 @@ static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie
  */
   __pyx_v_it = hattrie_iter_begin(__pyx_v_self->__pyx_base._trie, 0);
 
-  /* "hat_trie.pyx":150
+  /* "hat_trie.pyx":197
  *         cdef cpython.PyObject *o
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -3528,7 +4614,7 @@ static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie
  */
   /*try:*/ {
 
-    /* "hat_trie.pyx":151
+    /* "hat_trie.pyx":198
  * 
  *         try:
  *             while not hattrie_iter_finished(it):             # <<<<<<<<<<<<<<
@@ -3539,7 +4625,7 @@ static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie
       __pyx_t_1 = ((!(hattrie_iter_finished(__pyx_v_it) != 0)) != 0);
       if (!__pyx_t_1) break;
 
-      /* "hat_trie.pyx":152
+      /* "hat_trie.pyx":199
  *         try:
  *             while not hattrie_iter_finished(it):
  *                 o = <cpython.PyObject *> hattrie_iter_val(it)[0]             # <<<<<<<<<<<<<<
@@ -3548,7 +4634,7 @@ static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie
  */
       __pyx_v_o = ((PyObject *)(hattrie_iter_val(__pyx_v_it)[0]));
 
-      /* "hat_trie.pyx":153
+      /* "hat_trie.pyx":200
  *             while not hattrie_iter_finished(it):
  *                 o = <cpython.PyObject *> hattrie_iter_val(it)[0]
  *                 cpython.Py_XDECREF(o)             # <<<<<<<<<<<<<<
@@ -3557,7 +4643,7 @@ static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie
  */
       Py_XDECREF(__pyx_v_o);
 
-      /* "hat_trie.pyx":154
+      /* "hat_trie.pyx":201
  *                 o = <cpython.PyObject *> hattrie_iter_val(it)[0]
  *                 cpython.Py_XDECREF(o)
  *                 hattrie_iter_next(it)             # <<<<<<<<<<<<<<
@@ -3568,7 +4654,7 @@ static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie
     }
   }
 
-  /* "hat_trie.pyx":157
+  /* "hat_trie.pyx":204
  * 
  *         finally:
  *             hattrie_iter_free(it)             # <<<<<<<<<<<<<<
@@ -3583,7 +4669,7 @@ static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie
     __pyx_L5:;
   }
 
-  /* "hat_trie.pyx":146
+  /* "hat_trie.pyx":193
  *     # for more details.
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -3600,7 +4686,7 @@ static void __pyx_pf_8hat_trie_4Trie___dealloc__(struct __pyx_obj_8hat_trie_Trie
   __Pyx_RefNannyFinishContext();
 }
 
-/* "hat_trie.pyx":160
+/* "hat_trie.pyx":207
  * 
  * 
  *     def __getitem__(self, unicode key):             # <<<<<<<<<<<<<<
@@ -3617,7 +4703,7 @@ static PyObject *__pyx_pw_8hat_trie_4Trie_3__getitem__(PyObject *__pyx_v_self, P
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_4Trie_2__getitem__(((struct __pyx_obj_8hat_trie_Trie *)__pyx_v_self), ((PyObject*)__pyx_v_key));
 
   /* function exit code */
@@ -3641,9 +4727,9 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_2__getitem__(struct __pyx_obj_8hat_tri
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
-  __Pyx_TraceCall("__getitem__", __pyx_f[0], 160, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__getitem__", __pyx_f[0], 207, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":161
+  /* "hat_trie.pyx":208
  * 
  *     def __getitem__(self, unicode key):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -3652,15 +4738,15 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_2__getitem__(struct __pyx_obj_8hat_tri
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":162
+  /* "hat_trie.pyx":209
  *     def __getitem__(self, unicode key):
  *         cdef bytes bkey = key.encode('utf8')
  *         return self._fromvalue(self._getitem(bkey))             # <<<<<<<<<<<<<<
@@ -3668,15 +4754,15 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_2__getitem__(struct __pyx_obj_8hat_tri
  *     def __contains__(self, unicode key):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_3 = ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_fromvalue(__pyx_v_self, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_fromvalue(__pyx_v_self, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":160
+  /* "hat_trie.pyx":207
  * 
  * 
  *     def __getitem__(self, unicode key):             # <<<<<<<<<<<<<<
@@ -3697,7 +4783,7 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_2__getitem__(struct __pyx_obj_8hat_tri
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":164
+/* "hat_trie.pyx":211
  *         return self._fromvalue(self._getitem(bkey))
  * 
  *     def __contains__(self, unicode key):             # <<<<<<<<<<<<<<
@@ -3714,7 +4800,7 @@ static int __pyx_pw_8hat_trie_4Trie_5__contains__(PyObject *__pyx_v_self, PyObje
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__contains__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_4Trie_4__contains__(((struct __pyx_obj_8hat_trie_Trie *)__pyx_v_self), ((PyObject*)__pyx_v_key));
 
   /* function exit code */
@@ -3737,9 +4823,9 @@ static int __pyx_pf_8hat_trie_4Trie_4__contains__(struct __pyx_obj_8hat_trie_Tri
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__contains__", 0);
-  __Pyx_TraceCall("__contains__", __pyx_f[0], 164, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__contains__", __pyx_f[0], 211, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":165
+  /* "hat_trie.pyx":212
  * 
  *     def __contains__(self, unicode key):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -3748,26 +4834,26 @@ static int __pyx_pf_8hat_trie_4Trie_4__contains__(struct __pyx_obj_8hat_trie_Tri
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 165; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 165; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 165; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 212; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":166
+  /* "hat_trie.pyx":213
  *     def __contains__(self, unicode key):
  *         cdef bytes bkey = key.encode('utf8')
  *         return self._contains(bkey)             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(self, unicode key, value):
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 213; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._contains(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2);
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":164
+  /* "hat_trie.pyx":211
  *         return self._fromvalue(self._getitem(bkey))
  * 
  *     def __contains__(self, unicode key):             # <<<<<<<<<<<<<<
@@ -3787,7 +4873,7 @@ static int __pyx_pf_8hat_trie_4Trie_4__contains__(struct __pyx_obj_8hat_trie_Tri
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":168
+/* "hat_trie.pyx":215
  *         return self._contains(bkey)
  * 
  *     def __setitem__(self, unicode key, value):             # <<<<<<<<<<<<<<
@@ -3804,7 +4890,7 @@ static int __pyx_pw_8hat_trie_4Trie_7__setitem__(PyObject *__pyx_v_self, PyObjec
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 215; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_4Trie_6__setitem__(((struct __pyx_obj_8hat_trie_Trie *)__pyx_v_self), ((PyObject*)__pyx_v_key), ((PyObject *)__pyx_v_value));
 
   /* function exit code */
@@ -3827,9 +4913,9 @@ static int __pyx_pf_8hat_trie_4Trie_6__setitem__(struct __pyx_obj_8hat_trie_Trie
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__setitem__", 0);
-  __Pyx_TraceCall("__setitem__", __pyx_f[0], 168, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("__setitem__", __pyx_f[0], 215, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 215; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":169
+  /* "hat_trie.pyx":216
  * 
  *     def __setitem__(self, unicode key, value):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -3838,25 +4924,25 @@ static int __pyx_pf_8hat_trie_4Trie_6__setitem__(struct __pyx_obj_8hat_trie_Trie
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":170
+  /* "hat_trie.pyx":217
  *     def __setitem__(self, unicode key, value):
  *         cdef bytes bkey = key.encode('utf8')
  *         self._setitem(bkey, self._tovalue(value))             # <<<<<<<<<<<<<<
  * 
  *     def get(self, unicode key, value=None):
  */
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 217; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._setitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2, ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_tovalue(__pyx_v_self, __pyx_v_value));
 
-  /* "hat_trie.pyx":168
+  /* "hat_trie.pyx":215
  *         return self._contains(bkey)
  * 
  *     def __setitem__(self, unicode key, value):             # <<<<<<<<<<<<<<
@@ -3878,7 +4964,7 @@ static int __pyx_pf_8hat_trie_4Trie_6__setitem__(struct __pyx_obj_8hat_trie_Trie
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":172
+/* "hat_trie.pyx":219
  *         self._setitem(bkey, self._tovalue(value))
  * 
  *     def get(self, unicode key, value=None):             # <<<<<<<<<<<<<<
@@ -3922,7 +5008,7 @@ static PyObject *__pyx_pw_8hat_trie_4Trie_9get(PyObject *__pyx_v_self, PyObject 
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3937,13 +5023,13 @@ static PyObject *__pyx_pw_8hat_trie_4Trie_9get(PyObject *__pyx_v_self, PyObject 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("get", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("hat_trie.Trie.get", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_4Trie_8get(((struct __pyx_obj_8hat_trie_Trie *)__pyx_v_self), __pyx_v_key, __pyx_v_value);
 
   /* function exit code */
@@ -3973,9 +5059,9 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_8get(struct __pyx_obj_8hat_trie_Trie *
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get", 0);
-  __Pyx_TraceCall("get", __pyx_f[0], 172, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("get", __pyx_f[0], 219, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":173
+  /* "hat_trie.pyx":220
  * 
  *     def get(self, unicode key, value=None):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -3984,15 +5070,15 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_8get(struct __pyx_obj_8hat_trie_Trie *
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":174
+  /* "hat_trie.pyx":221
  *     def get(self, unicode key, value=None):
  *         cdef bytes bkey = key.encode('utf8')
  *         try:             # <<<<<<<<<<<<<<
@@ -4006,7 +5092,7 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_8get(struct __pyx_obj_8hat_trie_Trie *
     __Pyx_XGOTREF(__pyx_t_4);
     /*try:*/ {
 
-      /* "hat_trie.pyx":175
+      /* "hat_trie.pyx":222
  *         cdef bytes bkey = key.encode('utf8')
  *         try:
  *             return self._fromvalue(self._getitem(bkey))             # <<<<<<<<<<<<<<
@@ -4014,15 +5100,15 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_8get(struct __pyx_obj_8hat_trie_Trie *
  *             return value
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_5 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      __pyx_t_6 = ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_5); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      __pyx_t_1 = ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_fromvalue(__pyx_v_self, __pyx_t_6); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_5 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_6 = ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._getitem(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_5); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_t_1 = ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_fromvalue(__pyx_v_self, __pyx_t_6); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_r = __pyx_t_1;
       __pyx_t_1 = 0;
       goto __pyx_L7_try_return;
 
-      /* "hat_trie.pyx":174
+      /* "hat_trie.pyx":221
  *     def get(self, unicode key, value=None):
  *         cdef bytes bkey = key.encode('utf8')
  *         try:             # <<<<<<<<<<<<<<
@@ -4033,7 +5119,7 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_8get(struct __pyx_obj_8hat_trie_Trie *
     __pyx_L3_error:;
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "hat_trie.pyx":176
+    /* "hat_trie.pyx":223
  *         try:
  *             return self._fromvalue(self._getitem(bkey))
  *         except KeyError:             # <<<<<<<<<<<<<<
@@ -4043,12 +5129,12 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_8get(struct __pyx_obj_8hat_trie_Trie *
     __pyx_t_7 = PyErr_ExceptionMatches(__pyx_builtin_KeyError);
     if (__pyx_t_7) {
       __Pyx_AddTraceback("hat_trie.Trie.get", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_8, &__pyx_t_9) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
+      if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_8, &__pyx_t_9) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 223; __pyx_clineno = __LINE__; goto __pyx_L5_except_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GOTREF(__pyx_t_9);
 
-      /* "hat_trie.pyx":177
+      /* "hat_trie.pyx":224
  *             return self._fromvalue(self._getitem(bkey))
  *         except KeyError:
  *             return value             # <<<<<<<<<<<<<<
@@ -4066,7 +5152,7 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_8get(struct __pyx_obj_8hat_trie_Trie *
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "hat_trie.pyx":174
+    /* "hat_trie.pyx":221
  *     def get(self, unicode key, value=None):
  *         cdef bytes bkey = key.encode('utf8')
  *         try:             # <<<<<<<<<<<<<<
@@ -4092,7 +5178,7 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_8get(struct __pyx_obj_8hat_trie_Trie *
     goto __pyx_L0;
   }
 
-  /* "hat_trie.pyx":172
+  /* "hat_trie.pyx":219
  *         self._setitem(bkey, self._tovalue(value))
  * 
  *     def get(self, unicode key, value=None):             # <<<<<<<<<<<<<<
@@ -4115,7 +5201,7 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_8get(struct __pyx_obj_8hat_trie_Trie *
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":179
+/* "hat_trie.pyx":226
  *             return value
  * 
  *     def setdefault(self, unicode key, value):             # <<<<<<<<<<<<<<
@@ -4154,11 +5240,11 @@ static PyObject *__pyx_pw_8hat_trie_4Trie_11setdefault(PyObject *__pyx_v_self, P
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_value)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setdefault") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setdefault") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -4171,13 +5257,13 @@ static PyObject *__pyx_pw_8hat_trie_4Trie_11setdefault(PyObject *__pyx_v_self, P
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("setdefault", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("hat_trie.Trie.setdefault", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_key), (&PyUnicode_Type), 1, "key", 1))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_8hat_trie_4Trie_10setdefault(((struct __pyx_obj_8hat_trie_Trie *)__pyx_v_self), __pyx_v_key, __pyx_v_value);
 
   /* function exit code */
@@ -4200,9 +5286,9 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_10setdefault(struct __pyx_obj_8hat_tri
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setdefault", 0);
-  __Pyx_TraceCall("setdefault", __pyx_f[0], 179, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("setdefault", __pyx_f[0], 226, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":180
+  /* "hat_trie.pyx":227
  * 
  *     def setdefault(self, unicode key, value):
  *         cdef bytes bkey = key.encode('utf8')             # <<<<<<<<<<<<<<
@@ -4211,15 +5297,15 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_10setdefault(struct __pyx_obj_8hat_tri
  */
   if (unlikely(__pyx_v_key == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%s'", "encode");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 227; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyUnicode_AsUTF8String(__pyx_v_key); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 227; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(PyBytes_CheckExact(__pyx_t_1))||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_1)->tp_name), 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 227; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_bkey = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hat_trie.pyx":181
+  /* "hat_trie.pyx":228
  *     def setdefault(self, unicode key, value):
  *         cdef bytes bkey = key.encode('utf8')
  *         return self._setdefault(bkey, self._tovalue(value))             # <<<<<<<<<<<<<<
@@ -4227,14 +5313,14 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_10setdefault(struct __pyx_obj_8hat_tri
  *     def iterkeys(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_1 = __Pyx_PyInt_From_value_t(((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._setdefault(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2, ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_tovalue(__pyx_v_self, __pyx_v_value))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_AsString(__pyx_v_bkey); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_value_t(((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->__pyx_base._setdefault(((struct __pyx_obj_8hat_trie_BaseTrie *)__pyx_v_self), __pyx_t_2, ((struct __pyx_vtabstruct_8hat_trie_Trie *)__pyx_v_self->__pyx_base.__pyx_vtab)->_tovalue(__pyx_v_self, __pyx_v_value))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":179
+  /* "hat_trie.pyx":226
  *             return value
  * 
  *     def setdefault(self, unicode key, value):             # <<<<<<<<<<<<<<
@@ -4254,9 +5340,9 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_10setdefault(struct __pyx_obj_8hat_tri
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_8hat_trie_4Trie_14generator3(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "hat_trie.pyx":183
+/* "hat_trie.pyx":230
  *         return self._setdefault(bkey, self._tovalue(value))
  * 
  *     def iterkeys(self):             # <<<<<<<<<<<<<<
@@ -4278,7 +5364,7 @@ static PyObject *__pyx_pw_8hat_trie_4Trie_13iterkeys(PyObject *__pyx_v_self, CYT
 }
 
 static PyObject *__pyx_pf_8hat_trie_4Trie_12iterkeys(struct __pyx_obj_8hat_trie_Trie *__pyx_v_self) {
-  struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys *__pyx_cur_scope;
+  struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_TraceDeclarations
   __Pyx_RefNannyDeclarations
@@ -4286,18 +5372,18 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_12iterkeys(struct __pyx_obj_8hat_trie_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("iterkeys", 0);
-  __pyx_cur_scope = (struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys *)__pyx_tp_new_8hat_trie___pyx_scope_struct_2_iterkeys(__pyx_ptype_8hat_trie___pyx_scope_struct_2_iterkeys, __pyx_empty_tuple, NULL);
+  __pyx_cur_scope = (struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *)__pyx_tp_new_8hat_trie___pyx_scope_struct_3_iterkeys(__pyx_ptype_8hat_trie___pyx_scope_struct_3_iterkeys, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __Pyx_RefNannyFinishContext();
     return NULL;
   }
   __Pyx_GOTREF(__pyx_cur_scope);
-  __Pyx_TraceCall("iterkeys", __pyx_f[0], 183, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("iterkeys", __pyx_f[0], 230, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
   __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_8hat_trie_4Trie_14generator2, (PyObject *) __pyx_cur_scope, __pyx_n_s_iterkeys, __pyx_n_s_Trie_iterkeys); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_8hat_trie_4Trie_14generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_iterkeys, __pyx_n_s_Trie_iterkeys); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -4314,9 +5400,9 @@ static PyObject *__pyx_pf_8hat_trie_4Trie_12iterkeys(struct __pyx_obj_8hat_trie_
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_8hat_trie_4Trie_14generator3(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
-  struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys *__pyx_cur_scope = ((struct __pyx_obj_8hat_trie___pyx_scope_struct_2_iterkeys *)__pyx_generator->closure);
+  struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *__pyx_cur_scope = ((struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -4337,16 +5423,16 @@ static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "hat_trie.pyx":184
+  /* "hat_trie.pyx":231
  * 
  *     def iterkeys(self):
  *         for key in BaseTrie.iterkeys(self):             # <<<<<<<<<<<<<<
  *             yield key.decode('utf8')
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_8hat_trie_BaseTrie), __pyx_n_s_iterkeys); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_8hat_trie_BaseTrie), __pyx_n_s_iterkeys); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4359,16 +5445,16 @@ static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_cur_scope->__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_cur_scope->__pyx_v_self)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_v_self));
     __Pyx_GIVEREF(((PyObject *)__pyx_cur_scope->__pyx_v_self));
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, ((PyObject *)__pyx_cur_scope->__pyx_v_self));
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -4377,9 +5463,9 @@ static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_5 = 0;
     __pyx_t_6 = NULL;
   } else {
-    __pyx_t_5 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_6 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -4387,17 +5473,17 @@ static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_5 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_5 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_5); __Pyx_INCREF(__pyx_t_1); __pyx_t_5++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -4407,7 +5493,7 @@ static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 231; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         break;
       }
@@ -4418,16 +5504,16 @@ static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__
     __Pyx_GIVEREF(__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "hat_trie.pyx":185
+    /* "hat_trie.pyx":232
  *     def iterkeys(self):
  *         for key in BaseTrie.iterkeys(self):
  *             yield key.decode('utf8')             # <<<<<<<<<<<<<<
  * 
  *     cdef void _setitem(self, char* key, value_t value):
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_key, __pyx_n_s_decode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_key, __pyx_n_s_decode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 232; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 232; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_r = __pyx_t_4;
@@ -4447,9 +5533,9 @@ static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__
     __Pyx_XGOTREF(__pyx_t_2);
     __pyx_t_5 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_6 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(!__pyx_sent_value)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 232; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "hat_trie.pyx":184
+    /* "hat_trie.pyx":231
  * 
  *     def iterkeys(self):
  *         for key in BaseTrie.iterkeys(self):             # <<<<<<<<<<<<<<
@@ -4459,7 +5545,7 @@ static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "hat_trie.pyx":183
+  /* "hat_trie.pyx":230
  *         return self._setdefault(bkey, self._tovalue(value))
  * 
  *     def iterkeys(self):             # <<<<<<<<<<<<<<
@@ -4484,7 +5570,7 @@ static PyObject *__pyx_gb_8hat_trie_4Trie_14generator2(__pyx_CoroutineObject *__
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":187
+/* "hat_trie.pyx":234
  *             yield key.decode('utf8')
  * 
  *     cdef void _setitem(self, char* key, value_t value):             # <<<<<<<<<<<<<<
@@ -4503,9 +5589,9 @@ static void __pyx_f_8hat_trie_4Trie__setitem(struct __pyx_obj_8hat_trie_Trie *__
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_setitem", 0);
-  __Pyx_TraceCall("_setitem", __pyx_f[0], 187, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("_setitem", __pyx_f[0], 234, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 234; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":189
+  /* "hat_trie.pyx":236
  *     cdef void _setitem(self, char* key, value_t value):
  *         cdef cpython.PyObject *o
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))             # <<<<<<<<<<<<<<
@@ -4515,7 +5601,7 @@ static void __pyx_f_8hat_trie_4Trie__setitem(struct __pyx_obj_8hat_trie_Trie *__
   __pyx_t_1 = strlen(__pyx_v_key); 
   __pyx_v_value_ptr = hattrie_tryget(__pyx_v_self->__pyx_base._trie, __pyx_v_key, __pyx_t_1);
 
-  /* "hat_trie.pyx":190
+  /* "hat_trie.pyx":237
  *         cdef cpython.PyObject *o
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         if value_ptr != NULL:             # <<<<<<<<<<<<<<
@@ -4525,7 +5611,7 @@ static void __pyx_f_8hat_trie_4Trie__setitem(struct __pyx_obj_8hat_trie_Trie *__
   __pyx_t_2 = ((__pyx_v_value_ptr != NULL) != 0);
   if (__pyx_t_2) {
 
-    /* "hat_trie.pyx":191
+    /* "hat_trie.pyx":238
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         if value_ptr != NULL:
  *             o = <cpython.PyObject *> value_ptr[0]             # <<<<<<<<<<<<<<
@@ -4534,7 +5620,7 @@ static void __pyx_f_8hat_trie_4Trie__setitem(struct __pyx_obj_8hat_trie_Trie *__
  */
     __pyx_v_o = ((PyObject *)(__pyx_v_value_ptr[0]));
 
-    /* "hat_trie.pyx":192
+    /* "hat_trie.pyx":239
  *         if value_ptr != NULL:
  *             o = <cpython.PyObject *> value_ptr[0]
  *             cpython.Py_XDECREF(o)             # <<<<<<<<<<<<<<
@@ -4543,7 +5629,7 @@ static void __pyx_f_8hat_trie_4Trie__setitem(struct __pyx_obj_8hat_trie_Trie *__
  */
     Py_XDECREF(__pyx_v_o);
 
-    /* "hat_trie.pyx":190
+    /* "hat_trie.pyx":237
  *         cdef cpython.PyObject *o
  *         cdef value_t* value_ptr = hattrie_tryget(self._trie, key, len(key))
  *         if value_ptr != NULL:             # <<<<<<<<<<<<<<
@@ -4552,7 +5638,7 @@ static void __pyx_f_8hat_trie_4Trie__setitem(struct __pyx_obj_8hat_trie_Trie *__
  */
   }
 
-  /* "hat_trie.pyx":193
+  /* "hat_trie.pyx":240
  *             o = <cpython.PyObject *> value_ptr[0]
  *             cpython.Py_XDECREF(o)
  *         hattrie_get(self._trie, key, len(key))[0] = value             # <<<<<<<<<<<<<<
@@ -4562,7 +5648,7 @@ static void __pyx_f_8hat_trie_4Trie__setitem(struct __pyx_obj_8hat_trie_Trie *__
   __pyx_t_1 = strlen(__pyx_v_key); 
   (hattrie_get(__pyx_v_self->__pyx_base._trie, __pyx_v_key, __pyx_t_1)[0]) = __pyx_v_value;
 
-  /* "hat_trie.pyx":187
+  /* "hat_trie.pyx":234
  *             yield key.decode('utf8')
  * 
  *     cdef void _setitem(self, char* key, value_t value):             # <<<<<<<<<<<<<<
@@ -4579,7 +5665,7 @@ static void __pyx_f_8hat_trie_4Trie__setitem(struct __pyx_obj_8hat_trie_Trie *__
   __Pyx_RefNannyFinishContext();
 }
 
-/* "hat_trie.pyx":195
+/* "hat_trie.pyx":242
  *         hattrie_get(self._trie, key, len(key))[0] = value
  * 
  *     cdef object _fromvalue(self, value_t value):             # <<<<<<<<<<<<<<
@@ -4596,9 +5682,9 @@ static PyObject *__pyx_f_8hat_trie_4Trie__fromvalue(CYTHON_UNUSED struct __pyx_o
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_fromvalue", 0);
-  __Pyx_TraceCall("_fromvalue", __pyx_f[0], 195, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("_fromvalue", __pyx_f[0], 242, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":197
+  /* "hat_trie.pyx":244
  *     cdef object _fromvalue(self, value_t value):
  *         cdef cpython.PyObject *o
  *         o = <cpython.PyObject *> value             # <<<<<<<<<<<<<<
@@ -4607,7 +5693,7 @@ static PyObject *__pyx_f_8hat_trie_4Trie__fromvalue(CYTHON_UNUSED struct __pyx_o
  */
   __pyx_v_o = ((PyObject *)__pyx_v_value);
 
-  /* "hat_trie.pyx":198
+  /* "hat_trie.pyx":245
  *         cdef cpython.PyObject *o
  *         o = <cpython.PyObject *> value
  *         return <object> o             # <<<<<<<<<<<<<<
@@ -4619,7 +5705,7 @@ static PyObject *__pyx_f_8hat_trie_4Trie__fromvalue(CYTHON_UNUSED struct __pyx_o
   __pyx_r = ((PyObject *)__pyx_v_o);
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":195
+  /* "hat_trie.pyx":242
  *         hattrie_get(self._trie, key, len(key))[0] = value
  * 
  *     cdef object _fromvalue(self, value_t value):             # <<<<<<<<<<<<<<
@@ -4638,7 +5724,7 @@ static PyObject *__pyx_f_8hat_trie_4Trie__fromvalue(CYTHON_UNUSED struct __pyx_o
   return __pyx_r;
 }
 
-/* "hat_trie.pyx":200
+/* "hat_trie.pyx":247
  *         return <object> o
  * 
  *     cdef value_t _tovalue(self, object obj):             # <<<<<<<<<<<<<<
@@ -4655,9 +5741,9 @@ static value_t __pyx_f_8hat_trie_4Trie__tovalue(CYTHON_UNUSED struct __pyx_obj_8
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_tovalue", 0);
-  __Pyx_TraceCall("_tovalue", __pyx_f[0], 200, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 200; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
+  __Pyx_TraceCall("_tovalue", __pyx_f[0], 247, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 247; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
-  /* "hat_trie.pyx":202
+  /* "hat_trie.pyx":249
  *     cdef value_t _tovalue(self, object obj):
  *         cdef cpython.PyObject *o
  *         o = <cpython.PyObject *> obj             # <<<<<<<<<<<<<<
@@ -4666,7 +5752,7 @@ static value_t __pyx_f_8hat_trie_4Trie__tovalue(CYTHON_UNUSED struct __pyx_obj_8
  */
   __pyx_v_o = ((PyObject *)__pyx_v_obj);
 
-  /* "hat_trie.pyx":203
+  /* "hat_trie.pyx":250
  *         cdef cpython.PyObject *o
  *         o = <cpython.PyObject *> obj
  *         cpython.Py_XINCREF(o)             # <<<<<<<<<<<<<<
@@ -4674,7 +5760,7 @@ static value_t __pyx_f_8hat_trie_4Trie__tovalue(CYTHON_UNUSED struct __pyx_obj_8
  */
   Py_XINCREF(__pyx_v_o);
 
-  /* "hat_trie.pyx":204
+  /* "hat_trie.pyx":251
  *         o = <cpython.PyObject *> obj
  *         cpython.Py_XINCREF(o)
  *         return <value_t> o             # <<<<<<<<<<<<<<
@@ -4682,7 +5768,7 @@ static value_t __pyx_f_8hat_trie_4Trie__tovalue(CYTHON_UNUSED struct __pyx_obj_8
   __pyx_r = ((value_t)__pyx_v_o);
   goto __pyx_L0;
 
-  /* "hat_trie.pyx":200
+  /* "hat_trie.pyx":247
  *         return <object> o
  * 
  *     cdef value_t _tovalue(self, object obj):             # <<<<<<<<<<<<<<
@@ -4946,6 +6032,128 @@ static PyTypeObject __pyx_type_8hat_trie_IntTrie = {
   0, /*tp_init*/
   0, /*tp_alloc*/
   __pyx_tp_new_8hat_trie_IntTrie, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+static struct __pyx_vtabstruct_8hat_trie_FloatTrie __pyx_vtable_8hat_trie_FloatTrie;
+
+static PyObject *__pyx_tp_new_8hat_trie_FloatTrie(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_8hat_trie_FloatTrie *p;
+  PyObject *o = __pyx_tp_new_8hat_trie_BaseTrie(t, a, k);
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_8hat_trie_FloatTrie *)o);
+  p->__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_8hat_trie_BaseTrie*)__pyx_vtabptr_8hat_trie_FloatTrie;
+  return o;
+}
+static PyObject *__pyx_sq_item_8hat_trie_FloatTrie(PyObject *o, Py_ssize_t i) {
+  PyObject *r;
+  PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
+  r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
+  Py_DECREF(x);
+  return r;
+}
+
+static int __pyx_mp_ass_subscript_8hat_trie_FloatTrie(PyObject *o, PyObject *i, PyObject *v) {
+  if (v) {
+    return __pyx_pw_8hat_trie_9FloatTrie_5__setitem__(o, i, v);
+  }
+  else {
+    if (__pyx_ptype_8hat_trie_BaseTrie->tp_as_mapping && __pyx_ptype_8hat_trie_BaseTrie->tp_as_mapping->mp_ass_subscript)
+      return __pyx_ptype_8hat_trie_BaseTrie->tp_as_mapping->mp_ass_subscript(o, i, v);
+    PyErr_Format(PyExc_NotImplementedError,
+      "Subscript deletion not supported by %.200s", Py_TYPE(o)->tp_name);
+    return -1;
+  }
+}
+
+static PyMethodDef __pyx_methods_8hat_trie_FloatTrie[] = {
+  {"get", (PyCFunction)__pyx_pw_8hat_trie_9FloatTrie_7get, METH_VARARGS|METH_KEYWORDS, 0},
+  {"setdefault", (PyCFunction)__pyx_pw_8hat_trie_9FloatTrie_9setdefault, METH_VARARGS|METH_KEYWORDS, 0},
+  {"iterkeys", (PyCFunction)__pyx_pw_8hat_trie_9FloatTrie_11iterkeys, METH_NOARGS, 0},
+  {0, 0, 0, 0}
+};
+
+static PySequenceMethods __pyx_tp_as_sequence_FloatTrie = {
+  #if CYTHON_COMPILING_IN_PYPY
+  __pyx_pw_8hat_trie_8BaseTrie_11__len__, /*sq_length*/
+  #else
+  0, /*sq_length*/
+  #endif
+  0, /*sq_concat*/
+  0, /*sq_repeat*/
+  __pyx_sq_item_8hat_trie_FloatTrie, /*sq_item*/
+  0, /*sq_slice*/
+  0, /*sq_ass_item*/
+  0, /*sq_ass_slice*/
+  __pyx_pw_8hat_trie_9FloatTrie_3__contains__, /*sq_contains*/
+  0, /*sq_inplace_concat*/
+  0, /*sq_inplace_repeat*/
+};
+
+static PyMappingMethods __pyx_tp_as_mapping_FloatTrie = {
+  #if CYTHON_COMPILING_IN_PYPY
+  __pyx_pw_8hat_trie_8BaseTrie_11__len__, /*mp_length*/
+  #else
+  0, /*mp_length*/
+  #endif
+  __pyx_pw_8hat_trie_9FloatTrie_1__getitem__, /*mp_subscript*/
+  __pyx_mp_ass_subscript_8hat_trie_FloatTrie, /*mp_ass_subscript*/
+};
+
+static PyTypeObject __pyx_type_8hat_trie_FloatTrie = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "hat_trie.FloatTrie", /*tp_name*/
+  sizeof(struct __pyx_obj_8hat_trie_FloatTrie), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_8hat_trie_BaseTrie, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  &__pyx_tp_as_sequence_FloatTrie, /*tp_as_sequence*/
+  &__pyx_tp_as_mapping_FloatTrie, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
+  "\n    HAT-Trie with unicode support that stores float as value.\n    ", /*tp_doc*/
+  0, /*tp_traverse*/
+  0, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_8hat_trie_FloatTrie, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_8hat_trie_FloatTrie, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -5374,7 +6582,7 @@ static int __pyx_tp_clear_8hat_trie___pyx_scope_struct_2_iterkeys(PyObject *o) {
   p->__pyx_v_key = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_v_self);
-  p->__pyx_v_self = ((struct __pyx_obj_8hat_trie_Trie *)Py_None); Py_INCREF(Py_None);
+  p->__pyx_v_self = ((struct __pyx_obj_8hat_trie_FloatTrie *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->__pyx_t_0);
   p->__pyx_t_0 = Py_None; Py_INCREF(Py_None);
@@ -5440,6 +6648,124 @@ static PyTypeObject __pyx_type_8hat_trie___pyx_scope_struct_2_iterkeys = {
   #endif
 };
 
+static struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *__pyx_freelist_8hat_trie___pyx_scope_struct_3_iterkeys[8];
+static int __pyx_freecount_8hat_trie___pyx_scope_struct_3_iterkeys = 0;
+
+static PyObject *__pyx_tp_new_8hat_trie___pyx_scope_struct_3_iterkeys(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_8hat_trie___pyx_scope_struct_3_iterkeys > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys)))) {
+    o = (PyObject*)__pyx_freelist_8hat_trie___pyx_scope_struct_3_iterkeys[--__pyx_freecount_8hat_trie___pyx_scope_struct_3_iterkeys];
+    memset(o, 0, sizeof(struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_8hat_trie___pyx_scope_struct_3_iterkeys(PyObject *o) {
+  struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *p = (struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_key);
+  Py_CLEAR(p->__pyx_v_self);
+  Py_CLEAR(p->__pyx_t_0);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_8hat_trie___pyx_scope_struct_3_iterkeys < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys)))) {
+    __pyx_freelist_8hat_trie___pyx_scope_struct_3_iterkeys[__pyx_freecount_8hat_trie___pyx_scope_struct_3_iterkeys++] = ((struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_8hat_trie___pyx_scope_struct_3_iterkeys(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *p = (struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *)o;
+  if (p->__pyx_v_key) {
+    e = (*v)(p->__pyx_v_key, a); if (e) return e;
+  }
+  if (p->__pyx_v_self) {
+    e = (*v)(((PyObject*)p->__pyx_v_self), a); if (e) return e;
+  }
+  if (p->__pyx_t_0) {
+    e = (*v)(p->__pyx_t_0, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_8hat_trie___pyx_scope_struct_3_iterkeys(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *p = (struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys *)o;
+  tmp = ((PyObject*)p->__pyx_v_key);
+  p->__pyx_v_key = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_v_self);
+  p->__pyx_v_self = ((struct __pyx_obj_8hat_trie_Trie *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->__pyx_t_0);
+  p->__pyx_t_0 = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_8hat_trie___pyx_scope_struct_3_iterkeys = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "hat_trie.__pyx_scope_struct_3_iterkeys", /*tp_name*/
+  sizeof(struct __pyx_obj_8hat_trie___pyx_scope_struct_3_iterkeys), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_8hat_trie___pyx_scope_struct_3_iterkeys, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_8hat_trie___pyx_scope_struct_3_iterkeys, /*tp_traverse*/
+  __pyx_tp_clear_8hat_trie___pyx_scope_struct_3_iterkeys, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_8hat_trie___pyx_scope_struct_3_iterkeys, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
 static PyMethodDef __pyx_methods[] = {
   {0, 0, 0, 0}
 };
@@ -5464,6 +6790,7 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_BaseTrie_iterkeys, __pyx_k_BaseTrie_iterkeys, sizeof(__pyx_k_BaseTrie_iterkeys), 0, 0, 1, 1},
+  {&__pyx_n_s_FloatTrie_iterkeys, __pyx_k_FloatTrie_iterkeys, sizeof(__pyx_k_FloatTrie_iterkeys), 0, 0, 1, 1},
   {&__pyx_n_s_IntTrie_iterkeys, __pyx_k_IntTrie_iterkeys, sizeof(__pyx_k_IntTrie_iterkeys), 0, 0, 1, 1},
   {&__pyx_n_s_KeyError, __pyx_k_KeyError, sizeof(__pyx_k_KeyError), 0, 0, 1, 1},
   {&__pyx_n_s_Trie_iterkeys, __pyx_k_Trie_iterkeys, sizeof(__pyx_k_Trie_iterkeys), 0, 0, 1, 1},
@@ -5473,6 +6800,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_iterkeys, __pyx_k_iterkeys, sizeof(__pyx_k_iterkeys), 0, 0, 1, 1},
   {&__pyx_n_s_key, __pyx_k_key, sizeof(__pyx_k_key), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
+  {&__pyx_n_s_nan, __pyx_k_nan, sizeof(__pyx_k_nan), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_send, __pyx_k_send, sizeof(__pyx_k_send), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
@@ -5482,7 +6810,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_KeyError = __Pyx_GetBuiltinName(__pyx_n_s_KeyError); if (!__pyx_builtin_KeyError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_KeyError = __Pyx_GetBuiltinName(__pyx_n_s_KeyError); if (!__pyx_builtin_KeyError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -5492,27 +6820,38 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "hat_trie.pyx":135
+  /* "hat_trie.pyx":136
  *     def iterkeys(self):
  *         for key in BaseTrie.iterkeys(self):
  *             yield key.decode('utf8')             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_utf8); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_utf8); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "hat_trie.pyx":185
+  /* "hat_trie.pyx":174
+ *     def iterkeys(self):
+ *         for key in BaseTrie.iterkeys(self):
+ *             yield key.decode('utf8')             # <<<<<<<<<<<<<<
+ * 
+ *     cdef float _fromvalue(self, value_t value):
+ */
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_n_s_utf8); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
+
+  /* "hat_trie.pyx":232
  *     def iterkeys(self):
  *         for key in BaseTrie.iterkeys(self):
  *             yield key.decode('utf8')             # <<<<<<<<<<<<<<
  * 
  *     cdef void _setitem(self, char* key, value_t value):
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_n_s_utf8); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_utf8); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 232; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5537,7 +6876,8 @@ PyMODINIT_FUNC PyInit_hat_trie(void)
 #endif
 {
   __Pyx_TraceDeclarations
-  PyObject *__pyx_t_1 = NULL;
+  double __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5620,39 +6960,52 @@ PyMODINIT_FUNC PyInit_hat_trie(void)
   __pyx_vtable_8hat_trie_BaseTrie._setitem = (void (*)(struct __pyx_obj_8hat_trie_BaseTrie *, char *, value_t))__pyx_f_8hat_trie_8BaseTrie__setitem;
   __pyx_vtable_8hat_trie_BaseTrie._setdefault = (value_t (*)(struct __pyx_obj_8hat_trie_BaseTrie *, char *, value_t))__pyx_f_8hat_trie_8BaseTrie__setdefault;
   __pyx_vtable_8hat_trie_BaseTrie._contains = (int (*)(struct __pyx_obj_8hat_trie_BaseTrie *, char *))__pyx_f_8hat_trie_8BaseTrie__contains;
-  if (PyType_Ready(&__pyx_type_8hat_trie_BaseTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_8hat_trie_BaseTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_8hat_trie_BaseTrie.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_8hat_trie_BaseTrie.tp_dict, __pyx_vtabptr_8hat_trie_BaseTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "BaseTrie", (PyObject *)&__pyx_type_8hat_trie_BaseTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_8hat_trie_BaseTrie.tp_dict, __pyx_vtabptr_8hat_trie_BaseTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "BaseTrie", (PyObject *)&__pyx_type_8hat_trie_BaseTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_8hat_trie_BaseTrie = &__pyx_type_8hat_trie_BaseTrie;
   __pyx_vtabptr_8hat_trie_IntTrie = &__pyx_vtable_8hat_trie_IntTrie;
   __pyx_vtable_8hat_trie_IntTrie.__pyx_base = *__pyx_vtabptr_8hat_trie_BaseTrie;
   __pyx_type_8hat_trie_IntTrie.tp_base = __pyx_ptype_8hat_trie_BaseTrie;
-  if (PyType_Ready(&__pyx_type_8hat_trie_IntTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_8hat_trie_IntTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_8hat_trie_IntTrie.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_8hat_trie_IntTrie.tp_dict, __pyx_vtabptr_8hat_trie_IntTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "IntTrie", (PyObject *)&__pyx_type_8hat_trie_IntTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_8hat_trie_IntTrie.tp_dict, __pyx_vtabptr_8hat_trie_IntTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "IntTrie", (PyObject *)&__pyx_type_8hat_trie_IntTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_8hat_trie_IntTrie = &__pyx_type_8hat_trie_IntTrie;
+  __pyx_vtabptr_8hat_trie_FloatTrie = &__pyx_vtable_8hat_trie_FloatTrie;
+  __pyx_vtable_8hat_trie_FloatTrie.__pyx_base = *__pyx_vtabptr_8hat_trie_BaseTrie;
+  __pyx_vtable_8hat_trie_FloatTrie._fromvalue = (float (*)(struct __pyx_obj_8hat_trie_FloatTrie *, value_t))__pyx_f_8hat_trie_9FloatTrie__fromvalue;
+  __pyx_vtable_8hat_trie_FloatTrie._tovalue = (value_t (*)(struct __pyx_obj_8hat_trie_FloatTrie *, float))__pyx_f_8hat_trie_9FloatTrie__tovalue;
+  __pyx_type_8hat_trie_FloatTrie.tp_base = __pyx_ptype_8hat_trie_BaseTrie;
+  if (PyType_Ready(&__pyx_type_8hat_trie_FloatTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_8hat_trie_FloatTrie.tp_print = 0;
+  if (__Pyx_SetVtable(__pyx_type_8hat_trie_FloatTrie.tp_dict, __pyx_vtabptr_8hat_trie_FloatTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "FloatTrie", (PyObject *)&__pyx_type_8hat_trie_FloatTrie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_8hat_trie_FloatTrie = &__pyx_type_8hat_trie_FloatTrie;
   __pyx_vtabptr_8hat_trie_Trie = &__pyx_vtable_8hat_trie_Trie;
   __pyx_vtable_8hat_trie_Trie.__pyx_base = *__pyx_vtabptr_8hat_trie_BaseTrie;
   __pyx_vtable_8hat_trie_Trie.__pyx_base._setitem = (void (*)(struct __pyx_obj_8hat_trie_BaseTrie *, char *, value_t))__pyx_f_8hat_trie_4Trie__setitem;
   __pyx_vtable_8hat_trie_Trie._fromvalue = (PyObject *(*)(struct __pyx_obj_8hat_trie_Trie *, value_t))__pyx_f_8hat_trie_4Trie__fromvalue;
   __pyx_vtable_8hat_trie_Trie._tovalue = (value_t (*)(struct __pyx_obj_8hat_trie_Trie *, PyObject *))__pyx_f_8hat_trie_4Trie__tovalue;
   __pyx_type_8hat_trie_Trie.tp_base = __pyx_ptype_8hat_trie_BaseTrie;
-  if (PyType_Ready(&__pyx_type_8hat_trie_Trie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_8hat_trie_Trie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_8hat_trie_Trie.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_8hat_trie_Trie.tp_dict, __pyx_vtabptr_8hat_trie_Trie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "Trie", (PyObject *)&__pyx_type_8hat_trie_Trie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_8hat_trie_Trie.tp_dict, __pyx_vtabptr_8hat_trie_Trie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "Trie", (PyObject *)&__pyx_type_8hat_trie_Trie) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_8hat_trie_Trie = &__pyx_type_8hat_trie_Trie;
-  if (PyType_Ready(&__pyx_type_8hat_trie___pyx_scope_struct__iterkeys) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_8hat_trie___pyx_scope_struct__iterkeys) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_8hat_trie___pyx_scope_struct__iterkeys.tp_print = 0;
   __pyx_ptype_8hat_trie___pyx_scope_struct__iterkeys = &__pyx_type_8hat_trie___pyx_scope_struct__iterkeys;
-  if (PyType_Ready(&__pyx_type_8hat_trie___pyx_scope_struct_1_iterkeys) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 133; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_8hat_trie___pyx_scope_struct_1_iterkeys) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_8hat_trie___pyx_scope_struct_1_iterkeys.tp_print = 0;
   __pyx_ptype_8hat_trie___pyx_scope_struct_1_iterkeys = &__pyx_type_8hat_trie___pyx_scope_struct_1_iterkeys;
-  if (PyType_Ready(&__pyx_type_8hat_trie___pyx_scope_struct_2_iterkeys) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_8hat_trie___pyx_scope_struct_2_iterkeys) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_8hat_trie___pyx_scope_struct_2_iterkeys.tp_print = 0;
   __pyx_ptype_8hat_trie___pyx_scope_struct_2_iterkeys = &__pyx_type_8hat_trie___pyx_scope_struct_2_iterkeys;
+  if (PyType_Ready(&__pyx_type_8hat_trie___pyx_scope_struct_3_iterkeys) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_8hat_trie___pyx_scope_struct_3_iterkeys.tp_print = 0;
+  __pyx_ptype_8hat_trie___pyx_scope_struct_3_iterkeys = &__pyx_type_8hat_trie___pyx_scope_struct_3_iterkeys;
   /*--- Type import code ---*/
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
   #if CYTHON_COMPILING_IN_PYPY
@@ -5671,22 +7024,36 @@ PyMODINIT_FUNC PyInit_hat_trie(void)
   #endif
   __Pyx_TraceCall("PyMODINIT_FUNC PyInit_hat_trie(void)", __pyx_f[0], 1, 0, {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;});
 
+  /* "hat_trie.pyx":161
+ *         self._setitem(bkey, self._tovalue(value))
+ * 
+ *     def get(self, unicode key, value=float('nan')):             # <<<<<<<<<<<<<<
+ *         cdef bytes bkey = key.encode('utf8')
+ *         try:
+ */
+  __pyx_t_1 = __Pyx_PyObject_AsDouble(__pyx_n_s_nan); if (unlikely(__pyx_t_1 == ((double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_k__2 = __pyx_t_2;
+  __Pyx_GIVEREF(__pyx_t_2);
+  __pyx_t_2 = 0;
+
   /* "hat_trie.pyx":1
  * # cython: profile=True             # <<<<<<<<<<<<<<
  * 
- * from chat_trie cimport *
+ * from libc.math cimport NAN
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_TraceReturn(Py_None, 0);
 
   /*--- Wrapped vars code ---*/
 
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init hat_trie", __pyx_clineno, __pyx_lineno, __pyx_filename);
@@ -6466,6 +7833,45 @@ static int __Pyx_SetVtable(PyObject *dict, void *vtable) {
 bad:
     Py_XDECREF(ob);
     return -1;
+}
+
+static double __Pyx__PyObject_AsDouble(PyObject* obj) {
+    PyObject* float_value;
+#if CYTHON_COMPILING_IN_PYPY
+    float_value = PyNumber_Float(obj);  if (0) goto bad;
+#else
+    PyNumberMethods *nb = Py_TYPE(obj)->tp_as_number;
+    if (likely(nb) && likely(nb->nb_float)) {
+        float_value = nb->nb_float(obj);
+        if (likely(float_value) && unlikely(!PyFloat_Check(float_value))) {
+            PyErr_Format(PyExc_TypeError,
+                "__float__ returned non-float (type %.200s)",
+                Py_TYPE(float_value)->tp_name);
+            Py_DECREF(float_value);
+            goto bad;
+        }
+    } else if (PyUnicode_CheckExact(obj) || PyBytes_CheckExact(obj)) {
+#if PY_MAJOR_VERSION >= 3
+        float_value = PyFloat_FromString(obj);
+#else
+        float_value = PyFloat_FromString(obj, 0);
+#endif
+    } else {
+        PyObject* args = PyTuple_New(1);
+        if (unlikely(!args)) goto bad;
+        PyTuple_SET_ITEM(args, 0, obj);
+        float_value = PyObject_Call((PyObject*)&PyFloat_Type, args, 0);
+        PyTuple_SET_ITEM(args, 0, 0);
+        Py_DECREF(args);
+    }
+#endif
+    if (likely(float_value)) {
+        double value = PyFloat_AS_DOUBLE(float_value);
+        Py_DECREF(float_value);
+        return value;
+    }
+bad:
+    return (double)-1;
 }
 
 static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
