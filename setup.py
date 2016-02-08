@@ -15,7 +15,7 @@ with open('CHANGES.rst') as file_changes:
 
 setup(
     name="hat-trie",
-    version="0.2",
+    version="0.3",
     description="HAT-Trie for Python",
     long_description = readme + "\n\n" + changes,
     author='Mikhail Korobov',
