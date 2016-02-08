@@ -1,5 +1,6 @@
 # cython: profile=True
 
+from libc.math cimport NAN
 from chat_trie cimport *
 
 cimport cpython
@@ -29,7 +30,7 @@ cdef class BaseTrie:
         return self._contains(key)
 
     def __len__(self):
-        return (<hattrie_t_*> self._trie).m
+        return hattrie_size(self._trie)
 
     def get(self, bytes key, value=-1):
         try:
@@ -133,6 +134,52 @@ cdef class IntTrie(BaseTrie):
     def iterkeys(self):
         for key in BaseTrie.iterkeys(self):
             yield key.decode('utf8')
+
+
+cdef class FloatTrie(BaseTrie):
+    """
+    HAT-Trie with unicode support that stores float as value.
+    """
+
+    # XXX: uintptr_t is interpreted as a float32. This should work on all
+    # systems with 32-bit or larger pointers, e.g. the majority of modern
+    # computers. This will likely not work on embedded 8- and 16-bit
+    # systems.
+
+    def __getitem__(self, unicode key):
+        cdef bytes bkey = key.encode('utf8')
+        return self._fromvalue(self._getitem(bkey))
+
+    def __contains__(self, unicode key):
+        cdef bytes bkey = key.encode('utf8')
+        return self._contains(bkey)
+
+    def __setitem__(self, unicode key, float value):
+        cdef bytes bkey = key.encode('utf8')
+        self._setitem(bkey, self._tovalue(value))
+
+    def get(self, unicode key, value=float('nan')):
+        cdef bytes bkey = key.encode('utf8')
+        try:
+            return self._fromvalue(self._getitem(bkey))
+        except KeyError:
+            return value
+
+    def setdefault(self, unicode key, float value):
+        cdef bytes bkey = key.encode('utf8')
+        return self._fromvalue(self._setdefault(bkey, self._tovalue(value)))
+
+    def iterkeys(self):
+        for key in BaseTrie.iterkeys(self):
+            yield key.decode('utf8')
+
+    cdef float _fromvalue(self, value_t value):
+        cdef float* float_ptr = <float *> &value
+        return float_ptr[0]
+
+    cdef value_t _tovalue(self, float value):
+        cdef value_t* value_ptr = <value_t *> &value
+        return value_ptr[0]
 
 
 cdef class Trie(BaseTrie):

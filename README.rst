@@ -5,7 +5,7 @@ HAT-Trie structure for Python (2.x and 3.x).
 
 This package is a Python wrapper for `hat-trie`_ C library.
 
-.. image:: https://travis-ci.org/kmike/hat-trie.png?branch=master
+.. image:: https://travis-ci.org/kmike/hat-trie.svg?branch=master
     :target: https://travis-ci.org/kmike/hat-trie
 
 .. _hat-trie: https://github.com/dcjones/hat-trie
@@ -132,6 +132,7 @@ Authors & Contributors
 * Brandon Forehand <b4hand@users.sf.net>
 * https://github.com/yflau
 * Michael Heilman <https://github.com/mheilman/>
+* Michael Phan-Ba <michael@mikepb.com> @mikepb
 
 This module wraps `hat-trie`_ C library by Daniel Jones & contributors.
 
