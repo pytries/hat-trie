@@ -36,6 +36,9 @@ values then storing them in an array (either numpy or stdlib's ``array.array``)
 and using IntTrie values as indices could be more memory efficient
 than storing Python float objects directly in ``hat_trie.Trie``.
 
+Another way to store float values is to use hat_trie.FloatTrie().
+In this case precision is limited to float32.
+
 Currently implemented methods are:
 
 * __getitem__()
@@ -48,6 +51,7 @@ Currently implemented methods are:
 * iterkeys()
 
 Other methods are not implemented - contributions are welcome!
+
 
 Performance
 ===========
@@ -114,7 +118,7 @@ Make sure `tox`_ is installed and run
 
 from the source checkout. You will need Cython_ to do that.
 
-Tests should pass under python 2.6, 2.7, 3.2, 3.3 and 3.4.
+Tests should pass under python 2.7 and 3.3+.
 
 ::
 
