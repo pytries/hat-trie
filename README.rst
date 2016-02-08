@@ -132,6 +132,7 @@ Authors & Contributors
 * Brandon Forehand <b4hand@users.sf.net>
 * https://github.com/yflau
 * Michael Heilman <https://github.com/mheilman/>
+* Michael Phan-Ba <michael@mikepb.com> @mikepb
 
 This module wraps `hat-trie`_ C library by Daniel Jones & contributors.
 
